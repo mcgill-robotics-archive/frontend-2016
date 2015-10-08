@@ -1,1 +1,2 @@
-# front-end
+McGill Robotics Frontend
+========================
