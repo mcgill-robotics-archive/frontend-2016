@@ -1,0 +1,27 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "description": "McGill Robotics Frontend",
+  "main": "lib/frontend.js",
+  "scripts": {
+    "start": "nodejs scripts/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcgill-robotics/frontend.git"
+  },
+  "author": "Anass Al <mr@anassinator.com>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/mcgill-robotics/frontend/issues"
+  },
+  "homepage": "https://github.com/mcgill-robotics/frontend#readme",
+  "private": true,
+  "dependencies": {
+    "bower": "^1.6.5",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "stylus": "^0.52.4"
+  }
+}
