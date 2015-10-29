@@ -1,5 +1,12 @@
 <launch>
+  
+  <!-- rosbridge -->
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" >
     <arg name="port" value="8080"/>
   </include>
+
+  <!-- Main Application -->
+  <node pkg="frontend" type="app.js" name="frontend_app">
+  </node>
+
 </launch>
