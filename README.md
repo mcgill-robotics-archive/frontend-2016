@@ -9,25 +9,20 @@ McGill Robotics Frontend
 
 3. Run the following to install the `rosbridge_server` dependency: 
 	
-```bash
-sudo apt-get install ros-jade-rosbridge-server
-```
+   ```bash
+   sudo apt-get install ros-jade-rosbridge-server
+   ```
 
 4. In the frontend directory run `$ npm install` to install all required npm dependencies.
 
-5. *(Optional)* To install or update frontend libraries, install bower: 
-
-```bash
-sudo npm install -g bower
-```
 
 ###Running the Application
 
 1. Run the following command in the frontend directory: 
 	
-```bash
-roslaunch frontend frontend.launch
-```
+   ```bash
+   roslaunch frontend frontend.launch
+   ```
 
 
 ###Trouble Shooting
