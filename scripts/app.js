@@ -1,12 +1,28 @@
 #!/usr/bin/env nodejs
 
 var express = require('express');
-var app = express();
+var stylus = require('stylus');
+var nib = require('nib');
 
-app.use(express.static(__dirname + '/../public'));
+function compileStylus (str, path) {
+  return stylus(str)
+      .set('filename', path)
+      .use(nib());
+}
+
+var app = express();
+var appBasePath = __dirname + '/..';
+
+app.use(stylus.middleware({
+  src: appBasePath + '/assets',
+  dest: appBasePath + '/public',
+  compile: compileStylus
+}));
+
+app.use(express.static(appBasePath + '/public'));
 
 app.set('view engine', 'jade');
-app.set('views', __dirname + '/../views');
+app.set('views', appBasePath + '/views');
 
 app.get('/', function (req, res) {
   res.render('index', { message: 'Hello McGill Robotics!!' });
