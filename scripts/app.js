@@ -20,6 +20,7 @@ app.use(stylus.middleware({
 }));
 
 app.use(express.static(appBasePath + '/public'));
+app.use('/static', express.static(appBasePath + '/bower_components'));
 
 app.set('view engine', 'jade');
 app.set('views', appBasePath + '/views');

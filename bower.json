@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "description": "McGill Robotics Frontend",
+  "main": "scripts/app.js",
+  "authors": [
+    "Anass Al <mr@anassinator.com>"
+  ],
+  "license": "GPL-2.0",
+  "homepage": "https://github.com/mcgill-robotics/frontend",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  }
+}
