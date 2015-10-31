@@ -3,8 +3,13 @@
 var express = require('express');
 var app = express();
 
+app.use(express.static(__dirname + '/../public'));
+
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/../views');
+
 app.get('/', function (req, res) {
-  res.send('Hello McGill Robotics!');
+  res.render('index', { message: 'Hello McGill Robotics!!' });
 });
 
 
@@ -14,3 +19,4 @@ var server = app.listen(3000, '0.0.0.0', function() {
   console.log('\nNode server listening:');
   console.log('Running on http://%s:%s', host, port);
 });
+
