@@ -3,11 +3,11 @@ McGill Robotics Frontend
 
 ###Package Set Up
 
-1. Create a catkin workspace. Follow [this guide](http://wiki.ros.org/catkin/Tutorials/create_a_workspace). 
+1. Create a catkin workspace. Follow [this guide](http://wiki.ros.org/catkin/Tutorials/create_a_workspace).
 
 2. In the src directory of your catkin workspace, clone the frontend repository.
 
-3. Run the following to install the `rosbridge_server` dependency : 
+3. Run the following to install the `rosbridge_server` dependency: 
 	
 ```bash
 sudo apt-get install ros-jade-rosbridge-server
@@ -15,6 +15,11 @@ sudo apt-get install ros-jade-rosbridge-server
 
 4. In the frontend directory run `$ npm install` to install all required npm dependencies.
 
+5. *(Optional)* To install or update frontend libraries, install bower: 
+
+```bash
+sudo npm install -g bower
+```
 
 ###Running the Application
 
