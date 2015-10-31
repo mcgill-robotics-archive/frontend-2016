@@ -11,7 +11,7 @@ McGill Robotics Frontend
 	
 	`$ sudo apt-get install ros-<rosdistro>-rosbridge-server` 
 
-4. In the frontend directory run `$ npm install` to install all required npm dependencies
+4. In the frontend directory run `$ npm install` to install all required npm dependencies.
 
 
 ###Running the Application
