@@ -9,7 +9,9 @@ McGill Robotics Frontend
 
 3. Run the following to install the `rosbridge_server` dependency : 
 	
-	`$ sudo apt-get install ros-<rosdistro>-rosbridge-server` 
+```bash
+sudo apt-get install ros-jade-rosbridge-server
+```
 
 4. In the frontend directory run `$ npm install` to install all required npm dependencies.
 
@@ -18,7 +20,9 @@ McGill Robotics Frontend
 
 1. Run the following command in the frontend directory: 
 	
-	`$ roslaunch frontend frontend.launch`
+```bash
+roslaunch frontend frontend.launch
+```
 
 
 ###Trouble Shooting
