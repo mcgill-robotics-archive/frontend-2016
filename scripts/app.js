@@ -4,13 +4,12 @@ var express = require('express');
 var stylus = require('stylus');
 var nib = require('nib');
 
+var app = express();
 var appBasePath = __dirname + '/..';
 
 function compileStylus (str, path) {
   return stylus(str).set('filename', path).use(nib());
 }
-
-var app = express();
 
 app.use(stylus.middleware({
   src: appBasePath + '/assets',
