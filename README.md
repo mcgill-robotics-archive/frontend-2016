@@ -26,9 +26,9 @@ repository.
 
 3. Run the following to install the `rosbridge_server` dependency: 
 	
-```bash
-sudo apt-get install ros-jade-rosbridge-server
-```
+   ```bash
+   sudo apt-get install ros-jade-rosbridge-server
+   ```
 
 4. In the frontend directory, run `npm install` to install all required npm 
 dependencies.
@@ -40,18 +40,18 @@ Launching
 
 Run the following command: 
 	
-```bash
-roslaunch frontend frontend.launch
-```
+   ```bash
+   roslaunch frontend frontend.launch
+   ```
 
 Testing
 -------
 
 To test and lint the package, simply install all dependencies and run:
 
-```bash
-npm test
-```
+   ```bash
+   npm test
+   ```
 
 Troubleshooting
 ---------------
