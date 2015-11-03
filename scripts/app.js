@@ -1,6 +1,5 @@
 #!/usr/bin/env nodejs
 
-/*jslint node: true */
 "use strict";
 
 var express = require('express'),
@@ -9,9 +8,7 @@ var express = require('express'),
 
 var app = express();
 
-/*jslint nomen: true */
 var appBasePath = __dirname + '/..';
-/*jslint nomen: false */
 
 function compileStylus(str, path) {
   return stylus(str).set('filename', path).use(nib());
@@ -35,12 +32,10 @@ app.use('/lib', express.static(appBasePath + '/bower_components'));
 app.set('view engine', 'jade');
 app.set('views', appBasePath + '/views');
 
-/*jslint unparam: true */
 app.get('/', function (req, res) {
   // Render placeholder view template 'index.jade' with a message
-  res.render('index', {message: 'Hello McGill Robotics!!'});
+  res.render('index', {message: 'Hello McGill Robotics!'});
 });
-/*jslint unparam: false */
 
 var server = app.listen(3000, '0.0.0.0', function () {
   var host = server.address().address,
