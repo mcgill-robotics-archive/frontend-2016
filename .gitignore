@@ -32,3 +32,6 @@ bower_components
 *.swo
 *.swp
 .DS_Store
+
+# Generated CSS
+public/stylesheets
