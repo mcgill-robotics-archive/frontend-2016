@@ -40,18 +40,18 @@ Launching
 
 Run the following command: 
 	
-   ```bash
-   roslaunch frontend frontend.launch
-   ```
+```bash
+roslaunch frontend frontend.launch
+```
 
 Testing
 -------
 
 To test and lint the package, simply install all dependencies and run:
 
-   ```bash
-   npm test
-   ```
+```bash
+npm test
+```
 
 Troubleshooting
 ---------------
