@@ -8,7 +8,10 @@
   </template>
 
   <script>
+    // Import base set of Polymer properties from front end interface object
     var polymerProperties = frontendInterface.polymerBaseProperties;
+    
+    // Add other Polymer properties
     polymerProperties.label = String;
     polymerProperties.value = String;
 
@@ -18,12 +21,17 @@
       attached: function () {
         var context = this;
 
+        /*
+         * Subscribe to topic defined by HTML attribute / Polymer 
+         * property 'topic'
+         */
         this.topicListener = new ROSLIB.Topic({
           ros: frontendInterface.ros,
           name: this.topic,
           messageType: this.messageType
         });
 
+        // Update value property whenever an update is published on the topic
         this.topicListener.subscribe(function (message) {
           context.value = message.data.toString();
         });

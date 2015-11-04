@@ -10,6 +10,12 @@ var app = express();
 
 var appBasePath = __dirname + '/..';
 
+/**
+ * Compile stylus files and place them at the given path
+ * @constructor
+ * @param {string} str
+ * @param {string} path
+ */
 function compileStylus(str, path) {
   return stylus(str).set('filename', path).use(nib());
 }
