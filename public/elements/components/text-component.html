@@ -3,23 +3,23 @@
 <dom-module id="text-component">
   <template>
     <div>
-      <span>{{value}}</span>
+      <strong>[[label]]</strong> <span>[[value]]</span>
     </div>
   </template>
 
   <script>
+    var polymerProperties = frontendInterface.polymerBaseProperties;
+    polymerProperties.label = String;
+    polymerProperties.value = String;
+
     Polymer({
       is: "text-component",
-      properties: {
-        topic: String,
-        messageType: String,
-        value: String
-      },
+      properties: polymerProperties,
       attached: function () {
         var context = this;
 
         this.topicListener = new ROSLIB.Topic({
-          ros: window.ros,
+          ros: frontendInterface.ros,
           name: this.topic,
           messageType: this.messageType
         });
