@@ -1,3 +1,7 @@
+/**
+ * @file Defines any interface-related common object definitions or methods.
+ */
+
 /*global ROSLIB */
 
 'use strict';
@@ -6,11 +10,13 @@
  * Defines a globally accessible object with commonly used javascript
  * parameters, functions, and other resources.
  * @author David Lougheed
+ * @param host {string} - Specifies host address for ROSBridge server
+ * @param port {number} - Specifies ROSBridge server port
  * @global 
  */
-var MRFrontendInterface = function () {
+var MRFrontendInterface = function (host, port) {
   this.ros = new ROSLIB.Ros({
-    url: 'ws://localhost:8080'
+    url: 'ws://' + host + ':' + port.toString()
   });
 
   this.ros.on('connection', function () {
