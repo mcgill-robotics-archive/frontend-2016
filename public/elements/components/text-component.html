@@ -1,0 +1,38 @@
+<link rel="import" href="/lib/polymer/polymer.html">
+
+<dom-module id="text-component">
+  <template>
+    <div>
+      <span>{{value}}</span>
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "text-component",
+      properties: {
+        topic: String,
+        messageType: String,
+        value: String
+      },
+      attached: function () {
+        var context = this;
+
+        this.topicListener = new ROSLIB.Topic({
+          ros: window.ros,
+          name: context.topic,
+          messageType: context.messageType
+        });
+
+        this.topicListener.subscribe(function (message) {
+          context.value = message.data.toString();
+        });
+      },
+      detached: function () {
+        this.topicListener.unsubscribe();
+      }
+    });
+  </script>
+</dom-module>
+

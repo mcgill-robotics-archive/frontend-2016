@@ -4,8 +4,13 @@ html
     link(rel='stylesheet', media='screen', href='/stylesheets/screen.css')
     link(rel='import', href='/lib/polymer/polymer.html')
 
+    link(rel='import', href='/elements/components/text-component.html')
+
     script(src='/lib/eventemitter2/lib/eventemitter2.js')
     script(src='/lib/roslib/build/roslib.min.js')
+
+    script(src='/scripts/ros-setup.js')
   body
     p= message
+    text-component(topic='/test_text_topic', message-type='std_msgs/Int64')
 
