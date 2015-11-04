@@ -4,7 +4,6 @@
   <template>
     <div>
       <span>{{value}}</span>
-      <content></content>
     </div>
   </template>
 
@@ -21,8 +20,8 @@
 
         this.topicListener = new ROSLIB.Topic({
           ros: window.ros,
-          name: context.topic,
-          messageType: context.messageType
+          name: this.topic,
+          messageType: this.messageType
         });
 
         this.topicListener.subscribe(function (message) {
