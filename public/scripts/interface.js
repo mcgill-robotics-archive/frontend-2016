@@ -8,11 +8,11 @@
  * @author David Lougheed
  * @global 
  */
-var MRFrontendInterface = function() {
+var MRFrontendInterface = function () {
   this.ros = new ROSLIB.Ros({
     url: 'ws://localhost:8080'
   });
-  
+
   this.ros.on('connection', function () {
     console.log('Connected to websocket server.');
   });
@@ -23,6 +23,6 @@ var MRFrontendInterface = function() {
   this.polymerBaseProperties = {
     topic: String,
     messageType: String
-  }
-}
+  };
+};
 
