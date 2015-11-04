@@ -5,7 +5,9 @@
   "main": "lib/frontend.js",
   "scripts": {
     "start": "nodejs scripts/app.js",
-    "test": "jslint --indent 2 --maxlen 80 --node --nomen --unparam '**/*.js'"
+    "test": "npm run testn && npm run testb",
+    "testn": "jslint --indent 2 --maxlen 80 --node --nomen --unparam 'scripts/**/*.js'",
+    "testb": "jslint --indent 2 --maxlen 80 --browser --unparam 'public/**/*.js'"
   },
   "repository": {
     "type": "git",

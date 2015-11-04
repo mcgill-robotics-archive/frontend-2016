@@ -1,6 +1,6 @@
 #!/usr/bin/env nodejs
 
-"use strict";
+'use strict';
 
 var express = require('express'),
   stylus = require('stylus'),
