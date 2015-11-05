@@ -19,10 +19,6 @@ var polymerProperties = frontendInterface.polymerBaseProperties;
 polymerProperties.label = String;
 polymerProperties.value = String;
 
-polymerProperties.handleMessage = function (message) {
-  this.value = message.data.toString();
-};
-
 Polymer({
   is: "text-component",
   properties: polymerProperties,
