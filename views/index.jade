@@ -4,12 +4,13 @@ html
     link(rel='stylesheet', media='screen', href='/stylesheets/screen.css')
     link(rel='import', href='/lib/polymer/polymer.html')
 
-    script(src='/lib/eventemitter2/lib/eventemitter2.js')
-    script(src='/lib/roslib/build/roslib.min.js')
+    script(type='text/javascript',
+      src='/lib/eventemitter2/lib/eventemitter2.js')
+    script(type='text/javascript', src='/lib/roslib/build/roslib.min.js')
 
-    script(src='/scripts/interface.js')
+    script(type='text/javascript', src='/scripts/interface.js')
 
-    script.
+    script(type='text/javascript').
       var frontendInterface = new MRFrontendInterface('localhost', 8080);
     
     link(rel='import', href='/elements/components/text-component.html')
