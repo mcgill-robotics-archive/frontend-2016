@@ -9,7 +9,7 @@
     "lint_server":
       "jslint --indent 2 --maxlen 80 --node --nomen --unparam 's*/**/*.js'",
     "lint_client":
-      "jslint --indent 2 --maxlen 80 --browser --unparam 'public/**/*.js'"
+      "jslint --indent 2 --maxlen 80 --browser --unparam --newcap 'pub*/**/*.js'"
   },
   "repository": {
     "type": "git",
