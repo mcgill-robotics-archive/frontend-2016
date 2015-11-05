@@ -7,14 +7,13 @@ var express = require('express'),
   nib = require('nib');
 
 var app = express();
-
 var appBasePath = __dirname + '/..';
 
 /**
  * Compile stylus files and place them at the given path
  * @constructor
- * @param {string} str
- * @param {string} path
+ * @param {string} str - Unprocessed stylus code
+ * @param {string} path - Output path for resulting CSS
  */
 function compileStylus(str, path) {
   return stylus(str).set('filename', path).use(nib());
