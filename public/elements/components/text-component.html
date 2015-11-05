@@ -8,10 +8,16 @@
   </template>
 
   <script type="text/javascript">
-    // Import base set of Polymer properties from front end interface object
+    /*
+     *Import shared set of base Polymer properties from front end interface 
+     * object
+     */
     var polymerProperties = frontendInterface.polymerBaseProperties;
     
-    // Add other Polymer properties
+    /*
+     * Add and specify Polymer properties unique to the component defined, and 
+     * set their JavaScript types
+     */
     polymerProperties.label = String;
     polymerProperties.value = String;
 
