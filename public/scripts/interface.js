@@ -16,6 +16,7 @@
  * @global 
  */
 var MRFrontendInterface = function (host, port) {
+  // Connect to ROS
   this.ros = new ROSLIB.Ros({
     url: 'ws://' + host + ':' + port.toString()
   });
@@ -27,6 +28,10 @@ var MRFrontendInterface = function (host, port) {
     console.log('Error connecting to websocket server: ', error);
   });
 
+  /*
+   * Set up a collection of basic Polymer properties that will be included in
+   * all Polymer components defined.
+   */
   this.polymerBaseProperties = {
     topic: String,
     messageType: String

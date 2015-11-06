@@ -8,13 +8,13 @@
 
 /*
  * Import shared set of base Polymer properties from front end interface 
- * object
+ * object global, initialized in main template files.
  */
 var polymerProperties = frontendInterface.polymerBaseProperties;
 
 /*
  * Add and specify Polymer properties unique to the component defined, and 
- * set their JavaScript types
+ * set their JavaScript types.
  */
 polymerProperties.label = String;
 polymerProperties.value = String;
@@ -40,14 +40,14 @@ Polymer({
       messageType: this.messageType
     });
 
-    // Set the message handling function and pass the Polymer element context
+    // Set the message handling function and pass the Polymer element context.
     this.topicListener.subscribe(function (message) {
       context.handleMessage(context, message);
     });
   },
 
   /**
-   * Handle component removal
+   * Handle component removal.
    */
   detached: function () {
     this.topicListener.unsubscribe();

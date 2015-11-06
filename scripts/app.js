@@ -1,5 +1,9 @@
 #!/usr/bin/env nodejs
 
+/**
+ * @file Implements document serving and preprocessing functionalities.
+ */
+
 'use strict';
 
 var express = require('express'),
