@@ -56,7 +56,7 @@ Polymer({
   /**
    * Recieve message from the subscribed topic and set Polymer property
    * 'value' to the message's data.
-   * @constructor
+   * @function
    * @param {object} context - Stores a reference to the Polymer element
    * @param {object} message - Message data from topic
    */

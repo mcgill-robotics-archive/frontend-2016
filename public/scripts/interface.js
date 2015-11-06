@@ -10,6 +10,7 @@
  * Defines a globally accessible object with commonly used javascript
  * parameters, functions, and other resources.
  * @author David Lougheed
+ * @constructor
  * @param host {string} - Specifies host address for ROSBridge server
  * @param port {number} - Specifies ROSBridge server port
  * @global 
