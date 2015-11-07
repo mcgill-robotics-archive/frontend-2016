@@ -5,7 +5,6 @@ project(frontend)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS rosbridge_server)
-find_package(catkin REQUIRED COMPONENTS web_video_server)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
