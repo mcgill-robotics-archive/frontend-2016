@@ -1,15 +1,24 @@
 #!/usr/bin/env nodejs
 
-"use strict";
+/**
+ * @file Implements document serving and preprocessing functionalities.
+ */
+
+'use strict';
 
 var express = require('express'),
   stylus = require('stylus'),
   nib = require('nib');
 
 var app = express();
-
 var appBasePath = __dirname + '/..';
 
+/**
+ * Compile stylus files and place them at the given path
+ * @constructor
+ * @param {string} str - Unprocessed stylus code
+ * @param {string} path - Output path for resulting CSS
+ */
 function compileStylus(str, path) {
   return stylus(str).set('filename', path).use(nib());
 }
