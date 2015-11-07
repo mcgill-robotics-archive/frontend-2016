@@ -16,6 +16,7 @@ var polymerProperties = frontendInterface.polymerBaseProperties;
  * Add and specify Polymer properties unique to the component defined, and 
  * set their JavaScript types.
  */
+polymerProperties.label = String;
 polymerProperties.value = Number;
 polymerProperties.min = Number;
 polymerProperties.max = Number;
