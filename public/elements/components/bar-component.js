@@ -10,7 +10,7 @@
  * Import shared set of base Polymer properties from front end interface 
  * object global, initialized in main template files.
  */
-var polymerProperties = frontendInterface.polymerBaseProperties;
+var polymerProperties = frontendInterface.getPolymerBaseProperties();
 
 /*
  * Add and specify Polymer properties unique to the component defined, and 

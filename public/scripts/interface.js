@@ -27,12 +27,15 @@ var MRFrontendInterface = function (host, port) {
   this.ros.on('error', function (error) {
     console.log('Error connecting to websocket server: ', error);
   });
+};
 
-  /*
-   * Set up a collection of basic Polymer properties that will be included in
-   * all Polymer components defined.
-   */
-  this.polymerBaseProperties = {
+/**
+ * Return a collection of basic Polymer properties that will be included in
+ * all Polymer components defined.
+ * @function
+ */
+MRFrontendInterface.prototype.getPolymerBaseProperties = function () {
+  return {
     topic: String,
     messageType: String
   };
