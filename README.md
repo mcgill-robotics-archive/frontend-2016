@@ -64,3 +64,4 @@ ROS Dependencies
 ----------------
 * `catkin`
 * `rosbridge_server`
+* `web_video_server`
