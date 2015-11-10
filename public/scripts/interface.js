@@ -47,12 +47,15 @@ MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
   var allPolymerProperties = {},
     prop;
 
+  // Add all base Polymer properties to the return object.
   for (prop in this.baseComponentPolymerProperties) {
+    // Make sure no inherited properties are overwritten
     if (this.baseComponentPolymerProperties.hasOwnProperty(prop)) {
       allPolymerProperties[prop] = this.baseComponentPolymerProperties[prop];
     }
   }
 
+  // Add "extended" properties, i.e. ones specific to the component itself.
   for (prop in ext) {
     if (ext.hasOwnProperty(prop)) {
       allPolymerProperties[prop] = ext[prop];
