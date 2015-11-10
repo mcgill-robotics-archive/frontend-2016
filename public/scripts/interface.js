@@ -44,12 +44,19 @@ var MRFrontendInterface = function (host, port) {
  * @param ext {Object} - Contains Polymer component-specific properties
  */
 MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
-  var allPolymerProperties = {};
-  for(var prop in this.baseComponentPolymerProperties) {
-    allPolymerProperties[prop] = this.baseComponentPolymerProperties[prop];
+  var allPolymerProperties = {},
+    prop;
+
+  for (prop in this.baseComponentPolymerProperties) {
+    if (this.baseComponentPolymerProperties.hasOwnProperty(prop)) {
+      allPolymerProperties[prop] = this.baseComponentPolymerProperties[prop];
+    }
   }
-  for(var prop in ext) {
-    allPolymerProperties[prop] = ext[prop];
+
+  for (prop in ext) {
+    if (ext.hasOwnProperty(prop)) {
+      allPolymerProperties[prop] = ext[prop];
+    }
   }
 
   return allPolymerProperties;
