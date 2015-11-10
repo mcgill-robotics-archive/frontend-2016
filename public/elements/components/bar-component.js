@@ -1,5 +1,5 @@
 /**
- * @file Defines behaviours for text component.
+ * @file Defines behaviours for bar component.
  */
 
 /*global Polymer, ROSLIB, frontendInterface */
@@ -7,7 +7,7 @@
 'use strict';
 
 Polymer({
-  is: "text-component",
+  is: "bar-component",
 
   /*
    * Build an object with all Polymer properties for the component. Specify 
@@ -16,7 +16,10 @@ Polymer({
    */
   properties: frontendInterface.buildComponentPolymerProps({
     label: String,
-    value: String
+    value: Number,
+    min: Number,
+    max: Number,
+    step: Number
   }),
 
   /**
@@ -52,14 +55,14 @@ Polymer({
   },
 
   /**
-   * Recieve message from the subscribed topic and set Polymer property
-   * 'value' to the message's data.
+   * Recieve message from subscribed topic and set Polymer property 'value'
+   * (the current bar fill) to the message's data.
    * @function
    * @param {Object} context - Stores a reference to the Polymer element
    * @param {Object} message - Message data from topic
    */
   handleMessage: function (context, message) {
-    context.value = message.data.toString();
+    context.value = Number(message.data);
   }
 });
 
