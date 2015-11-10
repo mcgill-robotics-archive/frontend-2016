@@ -6,26 +6,23 @@
 
 'use strict';
 
-/*
- * Import shared set of base Polymer properties from front end interface 
- * object global, initialized in main template files.
- */
-var polymerProperties = frontendInterface.getPolymerBaseProperties();
-
-/*
- * Add and specify Polymer properties unique to the component defined, and 
- * set their JavaScript types.
- */
-polymerProperties.label = String;
-polymerProperties.value = String;
-
 Polymer({
   is: "text-component",
-  properties: polymerProperties,
+
+  /*
+   * Build an object with all Polymer properties for the component. Specify 
+   * Polymer properties unique to the component defined, and set their
+   * JavaScript types.
+   */
+  properties: frontendInterface.buildComponentPolymerProps({
+    label: String,
+    value: String
+  }),
 
   /**
    * Handle topic listening, related response behaviours and any
    * initialization procedure that requires the DOM to be fully loaded.
+   * @function
    */
   attached: function () {
     var context = this;
@@ -48,6 +45,7 @@ Polymer({
 
   /**
    * Handle component removal.
+   * @function
    */
   detached: function () {
     this.topicListener.unsubscribe();
@@ -57,8 +55,8 @@ Polymer({
    * Recieve message from the subscribed topic and set Polymer property
    * 'value' to the message's data.
    * @function
-   * @param {object} context - Stores a reference to the Polymer element
-   * @param {object} message - Message data from topic
+   * @param {Object} context - Stores a reference to the Polymer element
+   * @param {Object} message - Message data from topic
    */
   handleMessage: function (context, message) {
     context.value = message.data.toString();
