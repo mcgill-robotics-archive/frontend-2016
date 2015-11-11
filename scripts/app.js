@@ -53,7 +53,16 @@ app.get('/', function (req, res) {
 app.get('/component/:type/', function (req, res) {
   // Fetch the component type from the URL parameters
   var componentType = req.params.type + '-component';
-  res.render(componentType, {component: componentType});
+  res.render(componentType, {component: componentType}, function (err, html) {
+    /*
+     * If the template doesn't exist (or some other error occurred), print
+     * the error. Otherwise, send the normal HTML.
+     */
+    if (err) {
+      return res.send(err.message);
+    }
+    res.send(html);
+  });
 });
 
 var server = app.listen(3000, '0.0.0.0', function () {
