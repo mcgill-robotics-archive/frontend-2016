@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    link(rel = 'stylesheet', media = 'screen', 
+      href = '/stylesheets/screen.css')
+    link(rel = 'import', href = '/lib/polymer/polymer.html')
+
+    //-
+      Any polymer non-component imports for testing go here in the child
+      template.
+    block polymer-imports
+
+    script(type = 'text/javascript',
+      src = '/lib/eventemitter2/lib/eventemitter2.js')
+    script(type = 'text/javascript', src = '/lib/roslib/build/roslib.min.js')
+    script(type = 'text/javascript', src = '/scripts/interface.js')
+
+    script(type = 'text/javascript').
+      var frontendInterface = new MRFrontendInterface('localhost', 8080);
+
+    //- Include the relevant Polymer component element HTML file
+    link(rel = 'import', href = '/elements/components/#{component}.html')
+  body
+    block content
+      Add content to your jade file!

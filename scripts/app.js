@@ -42,8 +42,18 @@ app.set('view engine', 'jade');
 app.set('views', appBasePath + '/views');
 
 app.get('/', function (req, res) {
-  // Render placeholder view template 'index.jade' with a message
-  res.render('index', {message: 'Hello McGill Robotics!'});
+  // Render view template 'index.jade'
+  res.render('index');
+});
+
+/*
+ * Handle any requests for a component and return the template 
+ * '[type]-component'; pass the component name to the template.
+ */
+app.get('/component/:type/', function (req, res) {
+  // Fetch the component type from the URL parameters
+  var componentType = req.params.type + '-component';
+  res.render(componentType, {component: componentType});
 });
 
 var server = app.listen(3000, '0.0.0.0', function () {

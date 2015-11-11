@@ -4,19 +4,10 @@ html
     link(rel = 'stylesheet', media = 'screen', 
       href = '/stylesheets/screen.css')
     link(rel = 'import', href = '/lib/polymer/polymer.html')
-
-    script(type = 'text/javascript',
-      src = '/lib/eventemitter2/lib/eventemitter2.js')
-    script(type = 'text/javascript', src = '/lib/roslib/build/roslib.min.js')
-
-    script(type = 'text/javascript', src = '/scripts/interface.js')
-
-    script(type = 'text/javascript').
-      var frontendInterface = new MRFrontendInterface('localhost', 8080);
-    
-    link(rel = 'import', href = '/elements/components/text-component.html')
   body
-    p= message
-    text-component(topic = '/test_text_topic', 
-      message-type = 'std_msgs/Int64', label = 'Number: ')
+    //- Show a list of Polymer component test URLs
+    p
+      a(href = '/component/text/') Text Component
+    p
+      a(href = '/component/bar/') Bar Component
 
