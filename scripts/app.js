@@ -8,7 +8,8 @@
 
 var express = require('express'),
   stylus = require('stylus'),
-  nib = require('nib');
+  nib = require('nib'),
+  fs = require('fs');
 
 var app = express();
 var appBasePath = __dirname + '/..';
@@ -53,16 +54,20 @@ app.get('/', function (req, res) {
 app.get('/component/:type/', function (req, res) {
   // Fetch the component type from the URL parameters
   var componentType = req.params.type + '-component';
-  res.render(componentType, {component: componentType}, function (err, html) {
-    /*
-     * If the template doesn't exist (or some other error occurred), print
-     * the error. Otherwise, send the normal HTML.
-     */
-    if (err) {
-      return res.send(err.message);
-    }
-    res.send(html);
-  });
+
+  fs.readFile(appBasePath +
+    '/public/elements/components/' + componentType +
+    '/test/index.html', 'utf8', function (err, data) {
+      /* 
+       * If the test HTML file doesn't exist (or some other error occurred
+       * with reading the file), print the error. Otherwise, pass the read
+       * file to the component template.
+       */
+      if (err) {
+        return res.send(err.message);
+      }
+      res.render('component', {component: componentType, testHTML: data});
+    });
 });
 
 var server = app.listen(3000, '0.0.0.0', function () {

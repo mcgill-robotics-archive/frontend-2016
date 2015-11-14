@@ -11,8 +11,7 @@ html
     //-
       Any polymer non-component imports for testing go here in the child
       template.
-    block polymer-imports
-
+    link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
    
     script(type = 'text/javascript',
       src = '/lib/eventemitter2/lib/eventemitter2.js')
@@ -23,7 +22,8 @@ html
       var frontendInterface = new MRFrontendInterface('localhost', 8080);
 
     //- Include the relevant Polymer component element HTML file
-    link(rel = 'import', href = '/elements/components/#{component}.html')
+    link(rel = 'import',
+      href = '/elements/components/#{component}/#{component}.html')
   body
-    block content
-      Add content to your jade file!
+    div!= testHTML
+

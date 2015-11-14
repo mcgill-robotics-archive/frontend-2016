@@ -1,9 +1,0 @@
-extends ./component.jade
-
-block polymer-imports
-  link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
-
-block content
-  bar-component(topic = '/test_text_topic', min = '0', max = '1000',
-    message-type = 'std_msgs/Int64', label = 'Number', step = '1')
-
