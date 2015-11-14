@@ -8,5 +8,9 @@
   <!-- Main Application -->
   <node pkg="frontend" type="app.js" name="frontend" output="screen">
   </node>
-</launch>
 
+  <!-- Test Publisher -->
+  <node pkg="frontend" name="frontend_test_publisher" type="publisher.py">
+  </node>
+
+</launch>
