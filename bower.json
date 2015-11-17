@@ -20,6 +20,11 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
+    "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^1.0.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.0",
     "roslib": "roslibjs#~0.17.0"
+    
   }
+
 }

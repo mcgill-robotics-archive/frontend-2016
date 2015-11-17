@@ -15,8 +15,23 @@ html
       var frontendInterface = new MRFrontendInterface('localhost', 8080);
     
     link(rel = 'import', href = '/elements/components/text-component.html')
+    link(rel = 'import', href = '/lib/paper-button/paper-button.html')
+    link(rel = 'import', href = '/lib/paper-card/paper-card.html')
+ 
+    link(rel = 'import', href = '/elements/base-widget.html')
+    
   body
-    p= message
+   
     text-component(topic = '/test_text_topic', 
       message-type = 'std_msgs/Int64', label = 'Number: ')
+    paper-card(heading = 'Card Title')
+      div.card-content some content
+      div.card-actions
+        paper-button
+          Some action
+    
+    p space
+    base-widget
+
+
 
