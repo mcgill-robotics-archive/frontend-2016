@@ -16,6 +16,13 @@
  * @global 
  */
 var MRFrontendInterface = function (host, port) {
+  // The base set of Polymer properties that all components share.
+
+  this.baseComponentPolymerProperties = {
+    topic: String,
+    messageType: String,
+  };
+
   // Connect to ROS
   this.ros = new ROSLIB.Ros({
     url: 'ws://' + host + ':' + port.toString()
@@ -27,14 +34,34 @@ var MRFrontendInterface = function (host, port) {
   this.ros.on('error', function (error) {
     console.log('Error connecting to websocket server: ', error);
   });
+};
 
-  /*
-   * Set up a collection of basic Polymer properties that will be included in
-   * all Polymer components defined.
-   */
-  this.polymerBaseProperties = {
-    topic: String,
-    messageType: String
-  };
+/**
+ * Combine the set of base properties that all Polymer components share and
+ * any specific component-defined properties into a single object and return
+ * it.
+ * @function
+ * @param ext {Object} - Contains Polymer component-specific properties
+ */
+MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
+  var allPolymerProperties = {},
+    prop;
+
+  // Add all base Polymer properties to the return object.
+  for (prop in this.baseComponentPolymerProperties) {
+    // Make sure no inherited properties are overwritten
+    if (this.baseComponentPolymerProperties.hasOwnProperty(prop)) {
+      allPolymerProperties[prop] = this.baseComponentPolymerProperties[prop];
+    }
+  }
+
+  // Add "extended" properties, i.e. ones specific to the component itself.
+  for (prop in ext) {
+    if (ext.hasOwnProperty(prop)) {
+      allPolymerProperties[prop] = ext[prop];
+    }
+  }
+
+  return allPolymerProperties;
 };
 
