@@ -23,18 +23,23 @@ html
       function loadTextComponent() {
         window.location.pathname = '/component/text/';
       }
+      function loadBarComponent() {
+        window.location.pathname = '/component/bar/';
+      }
 
 
   body
     p= message  
     text-component(topic = '/test_text_topic', 
       message-type = 'std_msgs/Int64', label = 'Number: ')
-    paper-card(heading = 'Card Title')
-      div.card-content View components
+    paper-card(heading = 'Components')
+      div.card-content View components by clicking on their respective button below. 
       div.card-actions
         paper-button(onclick='loadTextComponent()')
           p Text Component
-          
+        paper-button(onclick='loadBarComponent()')
+          p Bar Component
+
     
     base-widget()
     
