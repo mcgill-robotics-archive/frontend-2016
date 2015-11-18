@@ -20,19 +20,21 @@ html
     link(rel = 'import', href = '/elements/base-widget.html')
     
     script(type = 'text/javascript').
-      function test() {
-        console.log('test1');
+      function loadTextComponent() {
+        window.location.pathname = '/component/text/';
       }
+
 
   body
     p= message  
     text-component(topic = '/test_text_topic', 
       message-type = 'std_msgs/Int64', label = 'Number: ')
     paper-card(heading = 'Card Title')
-      div.card-content Content on the card
+      div.card-content View components
       div.card-actions
-        paper-button(onclick='test()')
-          Action Action
+        paper-button(onclick='loadTextComponent()')
+          p Text Component
+          
     
     base-widget()
     
