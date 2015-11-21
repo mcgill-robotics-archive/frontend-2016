@@ -14,7 +14,6 @@ html
     script(type = 'text/javascript').
       var frontendInterface = new MRFrontendInterface('localhost', 8080);
     
-    link(rel = 'import', href = '/elements/components/text-component.html')
     link(rel = 'import', href = '/lib/paper-button/paper-button.html')
     link(rel = 'import', href = '/lib/paper-card/paper-card.html')
     link(rel = 'import', href = '/elements/base-widget.html')
@@ -29,19 +28,13 @@ html
 
 
   body
-    p= message  
-    text-component(topic = '/test_text_topic', 
-      message-type = 'std_msgs/Int64', label = 'Number: ')
+    base-widget
+
     paper-card(heading = 'Components')
       div.card-content View components by clicking on their respective button below. 
       div.card-actions
-        paper-button(onclick='loadTextComponent()')
-          p Text Component
-        paper-button(onclick='loadBarComponent()')
-          p Bar Component
-
-    
-    base-widget()
+        paper-button(onclick='loadTextComponent()') Text Component
+        paper-button(onclick='loadBarComponent()') Bar Component
     
 
     script(type = 'text/javascript'
