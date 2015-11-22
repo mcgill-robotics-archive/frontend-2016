@@ -38,10 +38,16 @@ dependencies.
 Launching
 ---------
 
-Run the following command: 
+To run in production, use the following command: 
 	
 ```bash
 roslaunch frontend frontend.launch
+```
+
+To run in a development environment, use the following command:
+
+```bash
+roslaunch frontend frontend-test.launch
 ```
 
 Testing

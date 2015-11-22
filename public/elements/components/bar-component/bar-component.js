@@ -1,31 +1,31 @@
 /**
- * @file Defines behaviours for text component.
+ * @file Defines behaviours for bar component.
  */
 
 /*global Polymer, ROSLIB, frontendInterface */
 
 'use strict';
 
-/*
- * Import shared set of base Polymer properties from front end interface 
- * object global, initialized in main template files.
- */
-var polymerProperties = frontendInterface.polymerBaseProperties;
-
-/*
- * Add and specify Polymer properties unique to the component defined, and 
- * set their JavaScript types.
- */
-polymerProperties.label = String;
-polymerProperties.value = String;
-
 Polymer({
-  is: "text-component",
-  properties: polymerProperties,
+  is: "bar-component",
+
+  /*
+   * Build an object with all Polymer properties for the component. Specify 
+   * Polymer properties unique to the component defined, and set their
+   * JavaScript types.
+   */
+  properties: frontendInterface.buildComponentPolymerProps({
+    label: String,
+    value: Number,
+    min: Number,
+    max: Number,
+    step: Number
+  }),
 
   /**
    * Handle topic listening, related response behaviours and any
    * initialization procedure that requires the DOM to be fully loaded.
+   * @function
    */
   attached: function () {
     var context = this;
@@ -48,20 +48,21 @@ Polymer({
 
   /**
    * Handle component removal.
+   * @function
    */
   detached: function () {
     this.topicListener.unsubscribe();
   },
 
   /**
-   * Recieve message from the subscribed topic and set Polymer property
-   * 'value' to the message's data.
+   * Recieve message from subscribed topic and set Polymer property 'value'
+   * (the current bar fill) to the message's data.
    * @function
-   * @param {object} context - Stores a reference to the Polymer element
-   * @param {object} message - Message data from topic
+   * @param {Object} context - Stores a reference to the Polymer element
+   * @param {Object} message - Message data from topic
    */
   handleMessage: function (context, message) {
-    context.value = message.data.toString();
+    context.value = Number(message.data);
   }
 });
 
