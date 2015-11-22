@@ -6,7 +6,7 @@
 
 'use strict';
 
-Polymer({
+var TextComponent = Polymer({
   is: "text-component",
 
   /*

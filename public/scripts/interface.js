@@ -2,7 +2,7 @@
  * @file Defines any interface-related common object definitions or methods.
  */
 
-/*global ROSLIB */
+/*global ROSLIB, BaseWidget */
 
 'use strict';
 
@@ -34,6 +34,8 @@ var MRFrontendInterface = function (host, port) {
   this.ros.on('error', function (error) {
     console.log('Error connecting to websocket server: ', error);
   });
+
+  this.widgets = [];
 };
 
 /**
@@ -63,5 +65,9 @@ MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
   }
 
   return allPolymerProperties;
+};
+
+MRFrontendInterface.prototype.addWidget = function (size, position) {
+  this.components.push(new BaseWidget(size, position));
 };
 

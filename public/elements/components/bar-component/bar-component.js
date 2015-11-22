@@ -6,7 +6,7 @@
 
 'use strict';
 
-Polymer({
+var BarComponent = Polymer({
   is: "bar-component",
 
   /*
