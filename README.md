@@ -16,6 +16,7 @@ Build Status
 | Branch   | Status                  |
 |:--------:|:-----------------------:|
 | `master` | [![master]][master url] |
+| `dev`    | [![dev]][dev url]       |
 | `all`    | [![all]][all url]       |
 
 Setup
