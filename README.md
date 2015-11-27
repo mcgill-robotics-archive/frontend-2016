@@ -10,10 +10,13 @@ Build Status
 [dev]: http://dev.mcgillrobotics.com:8080/buildStatus/icon?job=frontend_dev
 [dev url]: http://dev.mcgillrobotics.com:8080/job/frontend_dev
 
+[all]: http://dev.mcgillrobotics.com:8080/buildStatus/icon?job=frontend_all
+[all url]: http://dev.mcgillrobotics.com:8080/job/frontend_all
+
 | Branch   | Status                  |
 |:--------:|:-----------------------:|
 | `master` | [![master]][master url] |
-| `dev`    | [![dev]][dev url]       |
+| `all`    | [![all]][all url]       |
 
 Setup
 -----
