@@ -19,7 +19,10 @@ html
     script(type = 'text/javascript', src = '/scripts/interface.js')
 
     script(type = 'text/javascript').
-      var frontendInterface = new MRFrontendInterface('localhost', 8080);
+      var frontendInterface = new MRFrontendInterface({
+        'host': 'localhost', 
+        'port': 8080
+      });
 
     //- Include the relevant Polymer component element HTML file
     link(rel = 'import',
