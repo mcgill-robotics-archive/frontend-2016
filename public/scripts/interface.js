@@ -73,12 +73,14 @@ MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
 MRFrontendInterface.prototype.refreshDOM = function () {
   var container = document.getElementById(this.containerId),
     w;
-  
+
   // Clear all current DOM elements
   container.innerHTML = '';
 
-  for(var w in this.widgets) {
-    container.appendChild(this.widgets[w]);
+  for (w in this.widgets) {
+    if (this.widgets.hasOwnProperty(w)) {
+      container.appendChild(this.widgets[w]);
+    }
   }
 };
 
