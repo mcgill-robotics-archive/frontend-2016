@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    //- Header
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    title= title
+    meta(name='description', content=description)
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+
+    //- Other meta tags
+    include meta
+    //- Polymer imports
+    include polymer
+    //- Page style
+    block styles
+    //- Page scripts (only if absolutely necessary for dom)
+    block scripts_head
+  body.fullbleed.layout.vertical(unresolved)
+    //- Main content
+    block body
+    //- Page scripts
+    block scripts

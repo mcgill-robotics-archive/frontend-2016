@@ -13,7 +13,7 @@
  * @constructor
  * @param host {string} - Specifies host address for ROSBridge server
  * @param port {number} - Specifies ROSBridge server port
- * @global 
+ * @global
  */
 var MRFrontendInterface = function (host, port) {
   // The base set of Polymer properties that all components share.

@@ -24,8 +24,5 @@
     "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
     "paper-elements": "PolymerElements/paper-elements#^1.0.0",
     "roslib": "roslibjs#~0.17.0"
-    
   }
-
 }
-
