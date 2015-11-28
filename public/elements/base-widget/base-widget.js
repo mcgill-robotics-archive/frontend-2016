@@ -15,14 +15,12 @@ var BaseWidget = Polymer({
      */
 
   properties: {
-    size: Object,
     position: Object,
     components: Array
   },
 
-  factoryImpl: function (props) {
-    this.size = props.size;
-    this.position = props.position;
+  factoryImpl: function (position) {
+    this.position = position;
   },
 
   addComponent: function (component) {
@@ -30,6 +28,7 @@ var BaseWidget = Polymer({
   },
 
   attached: function () {
+    this.components = [];
     this.addComponent(new BarComponent());
   }
 });

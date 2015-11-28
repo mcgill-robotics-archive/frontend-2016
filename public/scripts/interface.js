@@ -11,11 +11,10 @@
  * parameters, functions, and other resources.
  * @author David Lougheed
  * @constructor
- * @param host {string} - Specifies host address for ROSBridge server
- * @param port {number} - Specifies ROSBridge server port
+ * @param properties {Object} - Specifies configuration settings for interface
  * @global 
  */
-var MRFrontendInterface = function (host, port) {
+var MRFrontendInterface = function (properties) {
   // The base set of Polymer properties that all components share.
 
   this.baseComponentPolymerProperties = {
@@ -23,9 +22,13 @@ var MRFrontendInterface = function (host, port) {
     messageType: String,
   };
 
+  this.host = properties.host;
+  this.port = properties.port;
+  this.containerId = properties.containerId;
+
   // Connect to ROS
   this.ros = new ROSLIB.Ros({
-    url: 'ws://' + host + ':' + port.toString()
+    url: 'ws://' + this.host + ':' + this.port.toString()
   });
 
   this.ros.on('connection', function () {
@@ -67,7 +70,20 @@ MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
   return allPolymerProperties;
 };
 
-MRFrontendInterface.prototype.addWidget = function (size, position) {
-  this.components.push(new BaseWidget(size, position));
+MRFrontendInterface.prototype.refreshDOM = function () {
+  var container = document.getElementById(this.containerId),
+    w;
+  
+  // Clear all current DOM elements
+  container.innerHTML = '';
+
+  for(var w in this.widgets) {
+    container.appendChild(this.widgets[w]);
+  }
+};
+
+MRFrontendInterface.prototype.addWidget = function (position) {
+  this.widgets.push(new BaseWidget(position));
+  this.refreshDOM();
 };
 
