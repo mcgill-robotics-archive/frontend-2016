@@ -42,6 +42,7 @@ var BaseWidget = Polymer({
 
   attached: function () {
     this.components = [];
+
     this.addComponent(new BarComponent({
       'topic': '/test_text_topic',
       'message-type': 'std_msgs/Int64',
