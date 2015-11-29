@@ -22,6 +22,15 @@ var BarComponent = Polymer({
     step: Number
   }),
 
+  factoryImpl: function (props) {
+    this.topic = props.topic;
+    this.messageType = props.messageTypes;
+    this.label = props.label;
+    this.min = props.min;
+    this.max = props.max;
+    this.step = props.step;
+  },
+
   /**
    * Handle topic listening, related response behaviours and any
    * initialization procedure that requires the DOM to be fully loaded.
