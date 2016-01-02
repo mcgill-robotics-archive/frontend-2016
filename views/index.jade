@@ -15,43 +15,34 @@ html
       var frontendInterface = new MRFrontendInterface({
         'host': 'localhost',
         'port': 8080,
-        'containerId': 'interfaceContainer'
+        'containerId': 'interfaceContainer',
+        'topBarId': 'topBar'
       });
 
-      document.addEventListener('DOMContentLoaded', function (event) {
-        var addWidgetButton = document.getElementById('addWidget');
+      window.onload = function () {
+        frontendInterface.initialize();
+      }
 
-        addWidgetButton.addEventListener('click', function() {
-          frontendInterface.addWidget({'x': 0, 'y': 0, 'w': 6, 'h': 6});
-        });
-      });
-
+    link(rel = 'import', href = '/lib/iron-icons/iron-icons.html')
     link(rel = 'import', href = '/lib/paper-button/paper-button.html')
+    link(rel = 'import', href = '/lib/paper-fab/paper-fab.html')
     link(rel = 'import', href = '/lib/paper-card/paper-card.html')
+    link(rel = 'import', href = '/lib/paper-tabs/paper-tabs.html')
     link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
     link(rel = 'import', href = '/elements/base-widget/base-widget.html')
-    link(rel = 'import', href = '/elements/components/text-component/text-component.html')
-    link(rel = 'import', href = '/elements/components/bar-component/bar-component.html')
-    
-    script(type = 'text/javascript').
-      function loadTextComponent() {
-        window.location.pathname = '/component/text/';
-      }
-      function loadBarComponent() {
-        window.location.pathname = '/component/bar/';
-      }
-
+    link(rel = 'import', 
+      href = '/elements/components/text-component/text-component.html')
+    link(rel = 'import', 
+      href = '/elements/components/bar-component/bar-component.html')
 
   body
-    button#addWidget Add Widget
+    paper-tabs#topBar
+      paper-tab Main Page
+      paper-tab Second Page
+      paper-tab Third Page
     div#interfaceContainer
-
-    paper-card(heading = 'Components')
-      div.card-content View components by clicking on their respective button below. 
-      div.card-actions
-        paper-button(onclick='loadTextComponent()') Text Component
-        paper-button(onclick='loadBarComponent()') Bar Component
-    
+      block layout
 
     script(type = 'text/javascript'
       src = '/lib/webcomponentsjs/webcomponents-lite.min.js')
+

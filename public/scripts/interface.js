@@ -25,6 +25,7 @@ var MRFrontendInterface = function (properties) {
   this.host = properties.host;
   this.port = properties.port;
   this.containerId = properties.containerId;
+  this.topBarId = properties.topBarId;
 
   // Connect to ROS
   this.ros = new ROSLIB.Ros({
@@ -37,8 +38,12 @@ var MRFrontendInterface = function (properties) {
   this.ros.on('error', function (error) {
     console.log('Error connecting to websocket server: ', error);
   });
+};
 
-  this.widgets = [];
+MRFrontendInterface.prototype.initialize = function () {
+  var container = document.getElementById(this.containerId),
+    topBar = document.getElementById(this.topBarId);
+  container.style.top = topBar.clientHeight.toString() + 'px';
 };
 
 /**
@@ -68,24 +73,5 @@ MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
   }
 
   return allPolymerProperties;
-};
-
-MRFrontendInterface.prototype.refreshDOM = function () {
-  var container = document.getElementById(this.containerId),
-    w;
-
-  // Clear all current DOM elements
-  container.innerHTML = '';
-
-  for (w in this.widgets) {
-    if (this.widgets.hasOwnProperty(w)) {
-      container.appendChild(this.widgets[w]);
-    }
-  }
-};
-
-MRFrontendInterface.prototype.addWidget = function (position) {
-  this.widgets.push(new BaseWidget(position));
-  this.refreshDOM();
 };
 

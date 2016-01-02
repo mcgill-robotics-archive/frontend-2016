@@ -14,6 +14,8 @@ var express = require('express'),
 var app = express();
 var APP_BASE_PATH = __dirname + '/..';
 
+var layout = process.argv[2] || 'test';
+
 /**
  * Compile stylus files and place them at the given path
  * @constructor
@@ -44,7 +46,7 @@ app.set('views', APP_BASE_PATH + '/views');
 
 app.get('/', function (req, res) {
   // Render view template 'index.jade'
-  res.render('index');
+  res.render('layouts/' + layout);
 });
 
 /*
