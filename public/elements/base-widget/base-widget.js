@@ -28,10 +28,10 @@ var BaseWidget = Polymer({
      * multiply by 100 to convert to CSS percentages.
      */
     var container = document.getElementById('interfaceContainer');
-    this.customStyle['--widget-width'] = 
+    this.customStyle['--widget-width'] =
       (this.width / 12.0 * 100).toString() + '%';
 
-    this.customStyle['--widget-height'] = (this.height / 12.0 
+    this.customStyle['--widget-height'] = (this.height / 12.0
       * container.clientHeight).toString() + 'px';
 
     this.customStyle['--widget-left'] = (this.x / 12.0 * 100).toString() + '%';
