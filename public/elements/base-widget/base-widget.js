@@ -16,29 +16,14 @@ var BaseWidget = Polymer({
     height: Number,
     x: Number,
     y: Number,
-
-    components: Array
   },
 
-  factoryImpl: function (position) {
-    this.position = position;
-    this.components = [];
-
-    this.addComponent(new BarComponent({
-      'topic': '/test_text_topic',
-      'message-type': 'std_msgs/Int64',
-
-      'label': 'Number',
-
-      'min': 0,
-      'max': 1000,
-      'step': 1
-    }));
-  },
-
+  /**
+   * When the component is attached, set up proper widget dimensions.
+   * @function
+   */
   attached: function () {
     var container = document.getElementById('interfaceContainer');
-    console.log(container.clientHeight);
     this.customStyle['--widget-width'] = (this.width / 12.0 * 100).toString()
       + '%';
     this.customStyle['--widget-height'] = (this.height / 12.0
