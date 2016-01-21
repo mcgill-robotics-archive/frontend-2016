@@ -40,6 +40,11 @@ var MRFrontendInterface = function (properties) {
   });
 };
 
+/**
+ * Initialize front end interface DOM styling and other things dependent on
+ * the DOM being initialized first.
+ * @function
+ */
 MRFrontendInterface.prototype.initialize = function () {
   var container = document.getElementById(this.containerId),
     topBar = document.getElementById(this.topBarId);
