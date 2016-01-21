@@ -2,7 +2,7 @@
  * @file Defines any interface-related common object definitions or methods.
  */
 
-/*global ROSLIB */
+/*global ROSLIB, BaseWidget */
 
 'use strict';
 
@@ -11,11 +11,10 @@
  * parameters, functions, and other resources.
  * @author David Lougheed
  * @constructor
- * @param host {string} - Specifies host address for ROSBridge server
- * @param port {number} - Specifies ROSBridge server port
+ * @param properties {Object} - Specifies configuration settings for interface
  * @global 
  */
-var MRFrontendInterface = function (host, port) {
+var MRFrontendInterface = function (properties) {
   // The base set of Polymer properties that all components share.
 
   this.baseComponentPolymerProperties = {
@@ -23,9 +22,14 @@ var MRFrontendInterface = function (host, port) {
     messageType: String,
   };
 
+  this.host = properties.host;
+  this.port = properties.port;
+  this.containerId = properties.containerId;
+  this.topBarId = properties.topBarId;
+
   // Connect to ROS
   this.ros = new ROSLIB.Ros({
-    url: 'ws://' + host + ':' + port.toString()
+    url: 'ws://' + this.host + ':' + this.port.toString()
   });
 
   this.ros.on('connection', function () {
@@ -34,6 +38,17 @@ var MRFrontendInterface = function (host, port) {
   this.ros.on('error', function (error) {
     console.log('Error connecting to websocket server: ', error);
   });
+};
+
+/**
+ * Initialize front end interface DOM styling and other things dependent on
+ * the DOM being initialized first.
+ * @function
+ */
+MRFrontendInterface.prototype.initialize = function () {
+  var container = document.getElementById(this.containerId),
+    topBar = document.getElementById(this.topBarId);
+  container.style.top = topBar.clientHeight.toString() + 'px';
 };
 
 /**
