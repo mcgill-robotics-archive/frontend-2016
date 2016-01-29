@@ -15,11 +15,11 @@ var vpaths = require('vinyl-paths');
 // TODO: use deprecated init because recommended doesnt reload
 var bs = require('browser-sync');
 var reload = require('browser-sync').reload;
+var nib = require('nib');
 
 // gulp modules
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-// TODO: needed because of hyphen?
 var stylish = require('gulp-jscs-stylish');
 var css_stylish = require('csslint-stylish');
 var coffee_stylish = require('coffeelint-stylish');
@@ -65,6 +65,9 @@ var src = {
             'routes/*.js'
         ]
     },
+    // base
+    appBase: 'app',
+    pubBase: 'public',
     // all views
     views: ['views/*.jade'],
     // all styles
@@ -143,7 +146,7 @@ gulp.task('build', function(cb) {
     sequence(
         'lint',// lint first
         'clean',
-        ['views', 'styles','scripts','images', 'elements'],
+        ['styles','scripts','images'],
         cb
     );
 });
@@ -368,9 +371,9 @@ function lint_jade (files) {
 function lint_html (files) {
     return gulp.src(files)
     .pipe($.ignore.exclude('*.jade'))
-    .pipe($.htmlhint())
+    .pipe($.htmlhint('.htmlhintrc'))
     .pipe($.htmlhint.reporter('htmlhint-stylish'))
-    .pipe($.htmlhint.failReporter({ suppress: true })
+    .pipe($.htmlhint.failReporter({ suppress: true }))
     .pipe($.size({title: 'htmlhint'}));
 }
 
@@ -442,15 +445,19 @@ gulp.task('styles', function(cb) {
 
 // compile stylus (copy vanilla css)
 gulp.task('stylus', function() {
-    return gulp.src(src.styles.app)
-    .pipe($.if('*.styl', $.stylus()))
+    return gulp.src(src.styles.app, {
+        base: src.appBase
+    })
+    .pipe($.if('*.styl', $.stylus({use: [nib()]})))
     .pipe(gulp.dest(dest.public))
     .pipe($.size({title: 'stylus'}));
 });
 
 // autoprefix CSS
 gulp.task('autoprefix', ['stylus'], function(cb) {
-    return gulp.src(src.styles.public)
+    return gulp.src(src.styles.public, {
+        base: src.pubBase
+    })
     .pipe($.autoprefixer({
         browsers: AUTOPREFIXER_BROWSERS
     }))
@@ -460,7 +467,9 @@ gulp.task('autoprefix', ['stylus'], function(cb) {
 
 // minimize CSS
 gulp.task('cssmin', ['autoprefix'], function() {
-    return gulp.src(src.styles.public)
+    return gulp.src(src.styles.public, {
+        base: src.pubBase
+    })
     .pipe($.cssmin())
     .pipe(gulp.dest(dest.public))
     .pipe($.size({title: 'cssmin'}));
@@ -486,7 +495,9 @@ gulp.task('scripts', function(cb) {
 
 // compile coffee (copy vanilla js)
 gulp.task('coffee', function() {
-    return gulp.src(src.scripts.app)
+    return gulp.src(src.scripts.app, {
+        base: src.appBase
+    })
     .pipe($.if('*.coffee', $.coffee()))
     .pipe(gulp.dest(dest.public))
     .pipe($.size({title: 'coffee'}));
@@ -494,7 +505,9 @@ gulp.task('coffee', function() {
 
 // uglify scripts in production
 gulp.task('uglify', ['coffee'], function() {
-    return gulp.src(src.scripts.public)
+    return gulp.src(src.scripts.public, {
+        base: src.pubBase
+    })
     .pipe($.uglify())
     .pipe(gulp.dest(dest.public))
     .pipe($.size({title: 'uglify'}));
@@ -504,8 +517,10 @@ gulp.task('uglify', ['coffee'], function() {
  * Task: Images
  * -------------------------------------------------------------------------- */
 
-gulp.task('images', function(cb) {
-    return gulp.src(src.images)
+gulp.task('images', function() {
+    return gulp.src(src.images, {
+        base: src.appBase
+    })
     .pipe($.if(argv.prod, $.imagemin({
         progressive: true,
         interlaced: true

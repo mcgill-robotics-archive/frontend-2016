@@ -21,12 +21,17 @@
   "homepage": "https://github.com/mcgill-robotics/frontend#readme",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.14.2",
     "bower": "^1.6.5",
+    "cookie-parser": "^1.4.1",
+    "debug": "^2.2.0",
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "jslint": "^0.9.3",
+    "morgan": "^1.6.1",
     "nib": "^1.1.0",
     "roslib": "^0.17.0",
+    "serve-favicon": "^2.3.0",
     "stylus": "^0.52.4"
   },
   "devDependencies": {
@@ -59,6 +64,7 @@
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.1.0",
     "run-sequence": "^1.1.5",
+    "stylint-stylish": "^1.2.0",
     "vinyl-paths": "^2.1.0",
     "yargs": "^3.30.0"
   }

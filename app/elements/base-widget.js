@@ -1,16 +1,16 @@
 /**
- * @file Defines behaviours for base widget cards.
+ * @fileOverview Defines behaviours for base widget cards.
  */
 
-/*global Polymer, ROSLIB, frontendInterface */
+/*global Polymer */
 
 'use strict';
 
 Polymer({
-  is: "base-widget"
+    is: 'base-widget'
 
     /*
-     * Build an object with all Polymer properties 
+     * Build an object with all Polymer properties
      * for the base widget. Testing file
      */
 });
