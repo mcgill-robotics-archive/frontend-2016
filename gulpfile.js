@@ -146,7 +146,7 @@ gulp.task('build', function(cb) {
     sequence(
         'lint',// lint first
         'clean',
-        ['styles','scripts','images'],
+        ['styles','scripts','images', 'elements'],
         cb
     );
 });
@@ -534,3 +534,11 @@ gulp.task('images', function() {
  * -------------------------------------------------------------------------- */
 
 // vulcanize
+gulp.task('elements', function() {
+    return gulp.src(src.elements.all, {
+        base: src.appBase
+    })
+    .pipe($.if('*.jade', $.jade()))
+    .pipe(gulp.dest(dest.public))
+    .pipe($.size({title: 'elements'}))
+})
