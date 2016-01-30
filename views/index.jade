@@ -11,7 +11,6 @@ block elements
 block styles
     link(rel='stylesheet', href='/styles/index.css')
 
-<<<<<<< HEAD
 //- Page scripts (loaded at the end of head only if absolutely necessary)
 //- block scripts_head
 
@@ -23,40 +22,38 @@ block scripts
 block body
     h1 Hello World!
     h2 Hello #{title}!
-=======
-    script(type = 'text/javascript').
-      var frontendInterface = new MRFrontendInterface({
-        'host': 'localhost',
-        'port': 8080,
-        'containerId': 'interfaceContainer',
-        'topBarId': 'topBar'
-      });
+  //-   script(type = 'text/javascript').
+  //-     var frontendInterface = new MRFrontendInterface({
+  //-       'host': 'localhost',
+  //-       'port': 8080,
+  //-       'containerId': 'interfaceContainer',
+  //-       'topBarId': 'topBar'
+  //-     });
 
-      window.onload = function () {
-        frontendInterface.initialize();
-      }
+  //-     window.onload = function () {
+  //-       frontendInterface.initialize();
+  //-     }
 
-    link(rel = 'import', href = '/lib/iron-icons/iron-icons.html')
-    link(rel = 'import', href = '/lib/paper-button/paper-button.html')
-    link(rel = 'import', href = '/lib/paper-fab/paper-fab.html')
-    link(rel = 'import', href = '/lib/paper-card/paper-card.html')
-    link(rel = 'import', href = '/lib/paper-tabs/paper-tabs.html')
-    link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
-    link(rel = 'import', href = '/elements/base-widget/base-widget.html')
-    link(rel = 'import', 
-      href = '/elements/components/text-component/text-component.html')
-    link(rel = 'import', 
-      href = '/elements/components/bar-component/bar-component.html')
+  //-   link(rel = 'import', href = '/lib/iron-icons/iron-icons.html')
+  //-   link(rel = 'import', href = '/lib/paper-button/paper-button.html')
+  //-   link(rel = 'import', href = '/lib/paper-fab/paper-fab.html')
+  //-   link(rel = 'import', href = '/lib/paper-card/paper-card.html')
+  //-   link(rel = 'import', href = '/lib/paper-tabs/paper-tabs.html')
+  //-   link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
+  //-   link(rel = 'import', href = '/elements/base-widget/base-widget.html')
+  //-   link(rel = 'import',
+  //-     href = '/elements/components/text-component/text-component.html')
+  //-   link(rel = 'import',
+  //-     href = '/elements/components/bar-component/bar-component.html')
 
-  body
-    paper-tabs#topBar
-      paper-tab Main Page
-      paper-tab Second Page
-      paper-tab Third Page
-    div#interfaceContainer
-      block layout
+  //- body
+  //-   paper-tabs#topBar
+  //-     paper-tab Main Page
+  //-     paper-tab Second Page
+  //-     paper-tab Third Page
+  //-   div#interfaceContainer
+  //-     block layout
 
-    script(type = 'text/javascript'
-      src = '/lib/webcomponentsjs/webcomponents-lite.min.js')
+  //-   script(type = 'text/javascript'
+  //-     src = '/lib/webcomponentsjs/webcomponents-lite.min.js')
 
->>>>>>> dev
