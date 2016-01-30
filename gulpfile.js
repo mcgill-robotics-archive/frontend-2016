@@ -13,8 +13,7 @@ var sequence = require('run-sequence');
 var del = require('del');
 var vpaths = require('vinyl-paths');
 // TODO: use deprecated init because recommended doesnt reload
-var bs = require('browser-sync');
-var reload = require('browser-sync').reload;
+var bs = require('browser-sync').create();
 var nib = require('nib');
 
 // gulp modules
@@ -196,7 +195,7 @@ gulp.task('nodemon', function(cb) {
 
 // live reload browser with LAN
 gulp.task('browser-sync', ['nodemon'], function() {
-    bs({
+    bs.init({
         // proxy expressjs app
         proxy: 'localhost:' + ports.express,
         // port for browsersync
@@ -221,17 +220,16 @@ gulp.task('browser-sync', ['nodemon'], function() {
     });
 
     // watch during development
-    gulp.watch(src.views, ['watch-views']);
-    gulp.watch(src.styles.all, ['watch-styles']);
-    gulp.watch(src.scripts.app, ['watch-scripts']);
-    gulp.watch(src.images, ['watch-images']);
-    gulp.watch(src.elements.all, ['watch-elements']);
+    gulp.watch(src.views, ['watch-views', bs.reload]);
+    gulp.watch(src.styles.all, ['watch-styles', bs.reload]);
+    gulp.watch(src.scripts.app, ['watch-scripts', bs.reload]);
+    gulp.watch(src.images, ['watch-images', bs.reload]);
+    gulp.watch(src.elements.all, ['watch-elements', bs.reload]);
 });
 
 gulp.task('watch-views', function (cb) {
     sequence(
         'lint:views',
-        reload,
         cb
     );
 });
@@ -239,7 +237,6 @@ gulp.task('watch-styles', function (cb) {
     sequence(
         'lint:styles',
         'styles',
-        reload,
         cb
     );
 });
@@ -247,16 +244,14 @@ gulp.task('watch-scripts', function (cb) {
     sequence(
         'lint:scripts',
         'scripts',
-        reload,
         cb
     );
 });
-gulp.task('watch-images', ['images'], reload);
+gulp.task('watch-images', ['images']);
 gulp.task('watch-elements', function (cb) {
     sequence(
         'lint:elements',
         'elements',
-        reload,
         cb
     );
 });
