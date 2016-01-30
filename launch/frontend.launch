@@ -6,7 +6,9 @@
   </include>
 
   <!-- Main Application -->
-  <node pkg="frontend" type="app.js" name="frontend" output="screen">
+  <arg name="layout" />
+  <node pkg="frontend" type="app.js" args="$(arg layout)"
+    name="frontend" output="screen">
   </node>
 </launch>
 

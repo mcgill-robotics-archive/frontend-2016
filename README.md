@@ -45,14 +45,20 @@ Launching
 To run in production, use the following command: 
 	
 ```bash
-roslaunch frontend frontend.launch
+roslaunch frontend frontend.launch layout:=foo
 ```
+
+where `foo` is the name of the desired jade layout file.
 
 To run in a development environment, use the following command:
 
 ```bash
 roslaunch frontend frontend-test.launch
 ```
+
+This will run with the jade layout file `test.jade`. One can optionally use an
+extra argument specifying a layout file by appending `layout:=foo` where `foo`
+is the name of the desired jade layout file to test.
 
 Testing
 -------
