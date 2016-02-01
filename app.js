@@ -63,10 +63,7 @@ app.use(function(req, res, next) {
 // locals for error template
 var errorLocals = {
   title: 'Frontend',
-  titleColor: '#f2f7fa',
-  description: '',
-  message: '',
-  error: {}
+  description: ''
 };
 // development error handler: will print stacktrace
 if (app.get('env') === 'development') {

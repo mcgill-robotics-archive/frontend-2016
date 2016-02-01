@@ -35,6 +35,8 @@ router.get('/:type/', function(req, res, next) {
       return res.send(err.message);
     }
     var locals = {
+      title: 'Frontend',
+      description: '',
       component: componentType,
       testHTML: data
     };

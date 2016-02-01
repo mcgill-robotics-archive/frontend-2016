@@ -5,7 +5,6 @@ var router = express.Router();
 
 var locals = {
   title: 'Frontend',
-  titleColor: '#f2f7fa',
   description: ''
 };
 
