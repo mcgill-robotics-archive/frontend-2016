@@ -1,12 +1,13 @@
 /**
- * @file Defines behaviours for base widget cards.
+ * @fileOverview Defines behaviours for base widget cards.
  */
 
-/*global Polymer, ROSLIB, TextComponent, BarComponent, frontendInterface */
+/* global Polymer */
+/* exported BaseWidget */
 
 'use strict';
 
-var BaseWidget = Polymer({
+var BaseWidget = Polymer({// jshint undef: false
   is: 'base-widget',
 
   properties: {
@@ -20,9 +21,10 @@ var BaseWidget = Polymer({
 
   /**
    * When the component is attached, set up proper widget dimensions.
+   *
    * @function
    */
-  attached: function () {
+  attached: function() {
     /*
      * Divide 12-column size parameter into a decimal percentage, then
      * multiply by 100 to convert to CSS percentages.
@@ -31,13 +33,13 @@ var BaseWidget = Polymer({
     this.customStyle['--widget-width'] =
       (this.width / 12.0 * 100).toString() + '%';
 
-    this.customStyle['--widget-height'] = (this.height / 12.0
-      * container.clientHeight).toString() + 'px';
+    this.customStyle['--widget-height'] =
+      (this.height / 12.0 * container.clientHeight).toString() + 'px';
 
     this.customStyle['--widget-left'] = (this.x / 12.0 * 100).toString() + '%';
 
-    this.customStyle['--widget-top'] = (this.y / 12.0
-      * container.clientHeight).toString() + 'px';
+    this.customStyle['--widget-top'] =
+      (this.y / 12.0 * container.clientHeight).toString() + 'px';
 
     this.updateStyles();
   }
