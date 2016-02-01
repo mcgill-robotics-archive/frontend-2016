@@ -1,20 +1,20 @@
 /**
- * @file Defines any interface-related common object definitions or methods.
+ * @fileOverview Defines any interface-related common object definitions or methods.
  */
 
-/*global ROSLIB, BaseWidget */
+/* global ROSLIB */
 
 'use strict';
 
 /**
  * Defines a globally accessible object with commonly used javascript
  * parameters, functions, and other resources.
+ *
  * @author David Lougheed
  * @constructor
- * @param properties {Object} - Specifies configuration settings for interface
- * @global 
+ * @param {Object} properties - Specifies configuration settings for interface
  */
-var MRFrontendInterface = function (properties) {
+var MRFrontendInterface = function(properties) {
   // The base set of Polymer properties that all components share.
 
   this.baseComponentPolymerProperties = {
@@ -32,10 +32,10 @@ var MRFrontendInterface = function (properties) {
     url: 'ws://' + this.host + ':' + this.port.toString()
   });
 
-  this.ros.on('connection', function () {
+  this.ros.on('connection', function() {
     console.log('Connected to websocket server.');
   });
-  this.ros.on('error', function (error) {
+  this.ros.on('error', function(error) {
     console.log('Error connecting to websocket server: ', error);
   });
 };
@@ -43,11 +43,12 @@ var MRFrontendInterface = function (properties) {
 /**
  * Initialize front end interface DOM styling and other things dependent on
  * the DOM being initialized first.
+ *
  * @function
  */
-MRFrontendInterface.prototype.initialize = function () {
-  var container = document.getElementById(this.containerId),
-    topBar = document.getElementById(this.topBarId);
+MRFrontendInterface.prototype.initialize = function() {
+  var container = document.getElementById(this.containerId);
+  var topBar = document.getElementById(this.topBarId);
   container.style.top = topBar.clientHeight.toString() + 'px';
 };
 
@@ -55,12 +56,13 @@ MRFrontendInterface.prototype.initialize = function () {
  * Combine the set of base properties that all Polymer components share and
  * any specific component-defined properties into a single object and return
  * it.
+ *
  * @function
- * @param ext {Object} - Contains Polymer component-specific properties
+ * @param {Object} ext - Contains Polymer component-specific properties
  */
-MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
-  var allPolymerProperties = {},
-    prop;
+MRFrontendInterface.prototype.buildComponentPolymerProps = function(ext) {
+  var allPolymerProperties = {};
+  var prop;
 
   // Add all base Polymer properties to the return object.
   for (prop in this.baseComponentPolymerProperties) {
@@ -79,4 +81,3 @@ MRFrontendInterface.prototype.buildComponentPolymerProps = function (ext) {
 
   return allPolymerProperties;
 };
-

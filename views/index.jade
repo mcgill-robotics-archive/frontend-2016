@@ -2,38 +2,41 @@ extends layout/layout
 
 //- Page polymer elements
 block elements
-    if dev
-        link(rel='import', href='/elements/index-elements.html')
-    else
-        link(rel='import', href='/elements/index-elements.vulcanized.html')
+  if dev
+    link(rel='import', href='/elements/index-elements.html')
+  else
+    link(rel='import', href='/elements/index-elements.vulcanized.html')
 
 //- Page style (loaded at the end of head)
 block styles
-    link(rel='stylesheet', href='/styles/index.css')
+  link(rel='stylesheet', href='/styles/index.css')
 
 //- Page scripts (loaded at the end of head only if absolutely necessary)
 block scripts_head
-    script(type = 'text/javascript').
-      var frontendInterface = new MRFrontendInterface({
-        'host': 'localhost',
-        'port': 8080,
-        'containerId': 'interfaceContainer',
-        'topBarId': 'topBar'
-      });
-      window.onload = function () {
-        frontendInterface.initialize();
-      }
+  script(type='text/javascript', src='../lib/eventemitter2/lib/eventemitter2.js')
+  script(type='text/javascript', src='../lib/roslib/build/roslib.min.js')
+  script(type='text/javascript', src='/scripts/interface.js')
+  script(type = 'text/javascript').
+    var frontendInterface = new MRFrontendInterface({
+      'host': 'localhost',
+      'port': 8080,
+      'containerId': 'interfaceContainer',
+      'topBarId': 'topBar'
+    });
+    window.onload = function () {
+      frontendInterface.initialize();
+    }
 
 //- Page scripts (loaded at the end of body)
 block scripts
-    script(src='/scripts/index.js')
+  script(src='/scripts/index.js')
 
 //- Main content
 block body
-    paper-tabs#topBar
-      paper-tab Main Page
-      paper-tab Second Page
-      paper-tab Third Page
-    div#interfaceContainer
-      block layout
+  paper-tabs#topBar
+    paper-tab Main Page
+    paper-tab Second Page
+    paper-tab Third Page
+  div#interfaceContainer
+    block layout
 

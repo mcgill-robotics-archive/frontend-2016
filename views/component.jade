@@ -1,32 +1,32 @@
-doctype html
-html
-  head
-    script(type = 'text/javascript',
-      src = '/lib/webcomponentsjs/webcomponents-lite.min.js')
+extends layout/layout
 
-    link(rel = 'stylesheet', media = 'screen',
-      href = '/stylesheets/screen.css')
-    link(rel = 'import', href = '/lib/polymer/polymer.html')
+//- Page polymer elements
+block elements
+  if dev
+    link(rel='import', href='/elements/component-elements.html')
+  else
+    link(rel='import', href='/elements/component-elements.vulcanized.html')
+  //- Include the relevant Polymer component element HTML file
+  link(rel='import', href='/elements/components/#{component}/#{component}.html')
 
-    //-
-      Any polymer non-component imports for testing go here in the child
-      template.
-    link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
+//- Page style (loaded at the end of head)
+block styles
+  link(rel='stylesheet', href='/styles/index.css')
 
-    script(type = 'text/javascript',
-      src = '/lib/eventemitter2/lib/eventemitter2.js')
-    script(type = 'text/javascript', src = '/lib/roslib/build/roslib.min.js')
-    script(type = 'text/javascript', src = '/scripts/interface.js')
+//- Page scripts (loaded at the end of head only if absolutely necessary)
+block scripts_head
+  script(type='text/javascript', src='../lib/eventemitter2/lib/eventemitter2.js')
+  script(type='text/javascript', src='../lib/roslib/build/roslib.min.js')
+  script(type='text/javascript', src='/scripts/interface.js')
+  script(type = 'text/javascript').
+    var frontendInterface = new MRFrontendInterface({
+      'host': 'localhost',
+      'port': 8080
+    });
 
-    script(type = 'text/javascript').
-      var frontendInterface = new MRFrontendInterface({
-        'host': 'localhost',
-        'port': 8080
-      });
+//- Page scripts (loaded at the end of body)
+//- block scripts
 
-    //- Include the relevant Polymer component element HTML file
-    link(rel = 'import',
-      href = '/elements/components/#{component}/#{component}.html')
-  body
-    div!= testHTML
-
+//- Main content
+block body
+  div!= testHTML

@@ -2,10 +2,10 @@ extends layout/layout
 
 //- Page style (loaded at the end of head)
 block styles
-    link(rel='stylesheet', href='/styles/error.css')
+  link(rel='stylesheet', href='/styles/error.css')
 
 //- Main content
 block body
-    h1= message
-    h2= error.status
-    pre #{error.stack}
+  h1= message
+  h2= error.status
+  pre #{error.stack}
