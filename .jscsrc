@@ -1,6 +1,5 @@
 {
   "preset": "google",
   "disallowSpacesInAnonymousFunctionExpression": null,
-  "excludeFiles": ["node_modules/**"],
-  "validateIndentation": 4
+  "excludeFiles": ["node_modules/**"]
 }
