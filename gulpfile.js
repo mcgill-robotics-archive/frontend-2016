@@ -189,7 +189,7 @@ gulp.task('nodemon', function(cb) {
   .on('restart', function onRestart() {
     // reload connected browsers after delay
     setTimeout(function load() {
-      reload({
+      bs.reload({
         stream: false
       });
     }, BS_RELOAD);
