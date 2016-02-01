@@ -4,9 +4,9 @@ extends layout/layout
 //- Page polymer elements
 block elements
   if dev
-    link(rel='import', href='/elements/index-elements.html')
+    link(rel='import', href='/elements/component-elements.html')
   else
-    link(rel='import', href='/elements/index-elements.vulcanized.html')
+    link(rel='import', href='/elements/component-elements.vulcanized.html')
   //- Include the relevant Polymer component element HTML file
   link(rel='import', href='/elements/components/#{component}/#{component}.html')
 
