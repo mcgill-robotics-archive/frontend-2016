@@ -30,10 +30,12 @@ block scripts
 
 //- Main content
 block body
-    paper-tabs#topBar
-      paper-tab Main Page
-      paper-tab Second Page
-      paper-tab Third Page
-    div#interfaceContainer
-      block layout
+    base-widget(width = '8', height = '4', x = '0', y = '0', title = 'Test 1')
+    bar-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
+      label = 'Number', min = '0', max = '1000', step = '1')
+    base-widget(width = '4', height = '8', x = '8', y = '0', title = 'Test 2')
+    text-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
+      label = 'Number: ')
+    base-widget(width = '8', height = '8', x = '0', y = '4', title = 'Test 3')
+    base-widget(width = '4', height = '4', x = '8', y = '8', title = 'Test 4')
 
