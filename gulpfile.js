@@ -428,7 +428,7 @@ function lint_json (files) {
  * -------------------------------------------------------------------------- */
 
 gulp.task('test', function() {
-  // TODO: implement tests
+  // TODO: implement tests using mocha
 });
 
 /* --------------------------------------------------------------------------
