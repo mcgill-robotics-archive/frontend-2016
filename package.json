@@ -4,7 +4,7 @@
   "description": "McGill Robotics Frontend",
   "main": "app.js",
   "scripts": {
-    "start": "gulp",
+    "start": "gulp start --prod",
     "test": "gulp lint",
     "lint_server": "jslint --indent 2 --maxlen 80 --node --nomen --unparam 's*/**/*.js'",
     "lint_client": "jslint --indent 2 --maxlen 80 --browser --unparam --newcap 'pub*/**/*.js'"
