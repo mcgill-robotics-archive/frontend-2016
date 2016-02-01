@@ -21,6 +21,7 @@ var logger = require('morgan');
 
 // routes
 var index = require('./routes/index');
+var component = require('./routes/component');
 
 /* --------------------------------------------------------------------------
  * Config
@@ -47,32 +48,7 @@ app.use('/lib', express.static(path.join(__dirname, 'bower_components')));
 
 // Use routes
 app.use('/', index);
-
-// TODO: add tests as a route?
-/*
- * Handle any requests for a component and return the template
- * '[type]-component'; pass the component name to the template.
- */
-// app.get('/component/:type/', function (req, res) {
-//   // Fetch the component type from the URL parameters
-//   var componentType = req.params.type + '-component';
-
-//   var element_test_path = path.join(
-//     __dirname,
-//     'app',
-//     'elements',
-//     'components',
-//     componentType,
-//     'test',
-//     'index.html'
-//   );
-//   fs.readFile(element_test_path, 'utf8', function (err, data) {
-//       if (err) {
-//         return res.send(err.message);
-//       }
-//       res.render('component', {component: componentType, testHTML: data});
-//     });
-// });
+app.use('/component', component);
 
 /* --------------------------------------------------------------------------
  * Error Handlers
@@ -80,33 +56,33 @@ app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 // locals for error template
 var errorLocals = {
-    title: 'Frontend',
-    titleColor: '#f2f7fa',
-    description: '',
-    message: '',
-    error: {}
+  title: 'Frontend',
+  titleColor: '#f2f7fa',
+  description: '',
+  message: '',
+  error: {}
 };
 // development error handler: will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        errorLocals.message = err.message;
-        errorLocals.error = err;
-        res.status(err.status || 500);
-        res.render('error', errorLocals);
-    });
+  app.use(function(err, req, res, next) {
+    errorLocals.message = err.message;
+    errorLocals.error = err;
+    res.status(err.status || 500);
+    res.render('error', errorLocals);
+  });
 }
 // production error handler: no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    errorLocals.message = err.message;
-    errorLocals.error = {};
-    res.status(err.status || 500);
-    res.render('error', errorLocals);
+  errorLocals.message = err.message;
+  errorLocals.error = {};
+  res.status(err.status || 500);
+  res.render('error', errorLocals);
 });
 
 // export server as node module
