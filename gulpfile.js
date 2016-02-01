@@ -23,6 +23,7 @@ var $ = require('gulp-load-plugins')();
 var stylish = require('gulp-jscs-stylish');
 var css_stylish = require('csslint-stylish');
 var coffee_stylish = require('coffeelint-stylish');
+var taskListing = require('gulp-task-listing')
 
 // local modules
 var ports = require('./modules/ports');
@@ -549,3 +550,36 @@ gulp.task('elements', function() {
 })
 
 // TODO: vulcanize elements in production
+
+/* --------------------------------------------------------------------------
+ * Task: Help
+ * -------------------------------------------------------------------------- */
+
+gulp.task('help', taskListing.withFilters(
+  function(task) {
+    switch(task) {
+      case 'start':
+        return false;
+      case 'build':
+        return false;
+      case 'serve':
+        return false;
+      case 'lint':
+        return false;
+      case 'clean':
+        return false;
+      case 'styles':
+        return false;
+      case 'scripts':
+        return false;
+      case 'images':
+        return false;
+      case 'elements':
+        return false;
+      case 'test':
+        return false;
+      default:
+        return true;
+    }
+  }, /[:-]/
+));
