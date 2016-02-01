@@ -2,10 +2,10 @@
   "name": "frontend",
   "version": "0.1.0",
   "description": "McGill Robotics Frontend",
-  "main": "lib/frontend.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodejs scripts/app.js",
-    "test": "npm run lint_server && npm run lint_client",
+    "start": "gulp",
+    "test": "gulp lint",
     "lint_server": "jslint --indent 2 --maxlen 80 --node --nomen --unparam 's*/**/*.js'",
     "lint_client": "jslint --indent 2 --maxlen 80 --browser --unparam --newcap 'pub*/**/*.js'"
   },
