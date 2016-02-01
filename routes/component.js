@@ -31,8 +31,7 @@ router.get('/:type/', function(req, res, next) {
   );
   fs.readFile(elementTestPath, 'utf8', function(err, data) {
     if (err) {
-      // TODO: pass on to error route?
-      return res.send(err.message);
+      next();
     }
     var locals = {
       title: 'Frontend',
@@ -40,6 +39,7 @@ router.get('/:type/', function(req, res, next) {
       component: componentType,
       testHTML: data
     };
+    locals.dev = req.app.get('env') === 'development';
     res.render('component', locals);
   });
 });

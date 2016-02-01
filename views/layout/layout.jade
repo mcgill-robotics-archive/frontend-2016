@@ -16,8 +16,9 @@ html(lang="en")
     block styles
     //- Page scripts (only if absolutely necessary for dom)
     block scripts_head
-  body.fullbleed.layout.vertical(unresolved)
-    //- Main content
-    block body
+  //- Main content
+  block body
+    body.fullbleed.layout.vertical(unresolved)
+    block body_content
     //- Page scripts
     block scripts

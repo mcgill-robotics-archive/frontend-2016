@@ -1,11 +1,12 @@
 extends layout/layout
 
 //- Page polymer elements
+//- Page polymer elements
 block elements
   if dev
-    link(rel='import', href='/elements/component-elements.html')
+    link(rel='import', href='/elements/index-elements.html')
   else
-    link(rel='import', href='/elements/component-elements.vulcanized.html')
+    link(rel='import', href='/elements/index-elements.vulcanized.html')
   //- Include the relevant Polymer component element HTML file
   link(rel='import', href='/elements/components/#{component}/#{component}.html')
 
@@ -28,5 +29,5 @@ block scripts_head
 //- block scripts
 
 //- Main content
-block body
+block body_content
   div!= testHTML
