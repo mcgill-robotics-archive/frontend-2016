@@ -22,16 +22,18 @@ router.get('/:type/', function(req, res, next) {
 
   var elementTestPath = path.join(
     __dirname,
-    'app',
+    '../',
+    'public',
     'elements',
     'components',
     componentType,
     'test',
     'index.html'
   );
+
   fs.readFile(elementTestPath, 'utf8', function(err, data) {
     if (err) {
-      next();
+      return next(err);
     }
     var locals = {
       title: 'Frontend',
