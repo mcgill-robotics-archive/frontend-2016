@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO: create a task-loader node module for modular gulp tasks (clean up gulpfile)
-
 /* --------------------------------------------------------------------------
  * Module Dependencies
  * -------------------------------------------------------------------------- */
@@ -420,16 +418,12 @@ function lint_js (files) {
   .pipe($.size({title: 'jslint'}));
 }
 
-function lint_json (files) {
-    // TODO: lint package, bower, etc
-}
-
 /* --------------------------------------------------------------------------
  * Task: Test
  * -------------------------------------------------------------------------- */
 
 gulp.task('test', function() {
-  // TODO: implement tests using mocha
+  // implement tests using mocha
 });
 
 /* --------------------------------------------------------------------------
@@ -549,7 +543,7 @@ gulp.task('elements', function() {
   .pipe($.size({title: 'elements'}))
 })
 
-// TODO: vulcanize elements in production
+// vulcanize elements in production
 
 /* --------------------------------------------------------------------------
  * Task: Help
