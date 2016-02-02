@@ -80,3 +80,33 @@ ROS Dependencies
 ----------------
 * `catkin`
 * `rosbridge_server`
+
+Gulp
+----
+
+To display a list of tasks simply run:
+
+```js
+gulp help
+```
+
+To lint, build, and start the server, run:
+
+```js
+gulp          // the taskname default is optional here
+```
+
+Or choose from any other task, such as:
+
+```js
+gulp start    // start the build and serve process (default)
+gulp build    // build all dependencies
+gulp serve    // start the webserver
+gulp lint     // check dependencies for style
+gulp clean    // remove all compiled dependencies
+gulp styles   // compile/process styles
+gulp scripts  // compile/process scripts
+gulp images   // minify images (in production)
+gulp elements // copy (and vulcanize in production)
+gulp test     // run tests
+```
