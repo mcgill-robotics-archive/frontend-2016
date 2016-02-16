@@ -22,7 +22,7 @@ rate = rospy.Rate(1)
 z = 0
 
 while not rospy.is_shutdown():
-  z += .5
+  z += .15
   q = quaternion_from_euler(0,0,z)
   pose.pose.orientation.x = q[0]
   pose.pose.orientation.y = q[1]

@@ -9,39 +9,62 @@ var PoseComponent = Polymer({
   is: "pose-component",
   properties: frontendInterface.buildComponentPolymerProps({
     angle: Number,
-    rad: 200,
-    canvas: null,
-    canvasContext: null,
-    tempCanvas: null,
-    tempContext: null
-
+    canvas: Object,
+    rad: Number
   }),
 
+  /**
+   * handle adjusting angle of pose line
+   * @function
+   * @param {Object} context - Stores a reference to the Polymer element
+   */
+  rotate: function (context) {
+    var ctx = this.canvas.getContext("2d"),
+      rad = this.rad,
+      tempCanvas,
+      tempCtx;
+    ctx.clearRect(0, 0, 2 * rad, 2 * rad);
+    // draw circle, circle may be unnecessary
+    ctx.beginPath();
+    ctx.arc(rad, rad, rad, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+    // draw pose line      
+    ctx.beginPath();
+    ctx.moveTo(rad, rad);
+    ctx.lineTo(rad, 0);
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = rad / 20;
+    ctx.stroke();
+    // save image
+    tempCanvas = document.createElement("canvas");
+    tempCtx = tempCanvas.getContext("2d");
+    tempCanvas.width = 2 * rad;
+    tempCanvas.height = 2 * rad;
+    tempCtx.drawImage(this.canvas, 0, 0, 2 * rad, 2 * rad);
+    ctx.save();
+    // center
+    ctx.translate(rad, rad);
+    // rotate
+    ctx.rotate(context.angle);
+    // center rotate
+    ctx.translate(-rad, -rad);
+    ctx.drawImage(tempCanvas, 0, 0);
+    ctx.restore();
+  },
   attached: function () {
     var context = this,
-      rad = context.rad,
-      height = 2 * rad;
-    context.canvas = document.getElementById("canvas");
-    context.canvasContext = context.canvas.getContext("2d");
-    context.tempCanvas = document.createElement("canvas");
-    context.tempContext = context.tempCanvas.getContext("2d");
-    context.canvas.width = 2 * context.rad;
-    context.canvas.height = 2 * context.rad;
-   // draw circle
-    context.canvasContext.beginPath();
-    context.canvasContext.arc(rad, rad, rad, 0, 2 * Math.PI, false);
-    context.canvasContext.fillStyle = 'black';
-    context.canvasContext.fill();
-  // draw pose line      
-    context.canvasContext.beginPath();
-    context.canvasContext.moveTo(rad, rad);
-    context.canvasContext.lineTo(rad, 0);
-    context.canvasContext.strokeStyle = 'blue';
-    context.canvasContext.lineWidth = 10;
-    context.canvasContext.stroke();
-    context.tempCanvas.width = context.canvas.width;
-    context.tempCanvas.height = context.canvas.height;
-    context.tempContext.drawImage(context.canvas, 0, 0, height, height);
+    // Set up the canvas... 
+      canvas = document.createElement('canvas');
+    canvas.id = "canvas";
+    //should do something about style, also %
+    canvas.style.height  = '100%';
+    canvas.height  = canvas.width;
+    this.rad = canvas.width / 2;
+    canvas.style.position = "relative";
+    Polymer.dom(this.root).appendChild(canvas);
+    this.canvas = canvas;
+
     /*
      * Subscribe to topic defined by HTML attribute / Polymer 
      * property 'topic'.
@@ -65,34 +88,20 @@ var PoseComponent = Polymer({
   detached: function () {
     this.topicListener.unsubscribe();
   },
-
-  rotate: function (angle, context) {
-  // clear
-    var rad = context.rad;
-    context.canvasContext.clearRect(0, 0, 2 * rad, 2 * rad);
-    context.canvasContext.save();
-  //center
-    context.canvasContext.translate(context.rad, context.rad);
-  // rotate
-    context.canvasContext.rotate(angle);
-    context.canvasContext.translate(-context.rad, -context.rad);
-
-  // Finally draw the image data from the temp canvas.
-    context.canvasContext.drawImage(context.tempCanvas, 0, 0);
-    context.canvasContext.restore();
-    context.requestAnimationFrame(context.rotate);
-  },
   /**
-   * Recieve message from the subscribed topic and set Polymer property
-   * 'value' to the message's data.
-   * @function
-   * @param {Object} context - Stores a reference to the Polymer element
-   * @param {Object} message - Message data from topic
+   * Recieve pose stamped message from the subscribed topic 
+   * and set Polymer property 'angle' to the yaw.
+   * NOTE: 0 deg. is NORTH
    */
   handleMessage: function (context, message) {
-    var newAngle = message.orientation.getAngle();
-    context.rotate(newAngle - context.angle, context);
-    context.angle = newAngle();
+    // message orientation is a quaternion. convert to euler - yaw
+    var q = message.pose.orientation,
+      temp1 = 2.0 * ((q.x * q.y) + (q.w * q.z)),
+      temp2 = (q.w * q.w) - (q.z * q.z) - (q.y * q.y) + (q.x * q.x),
+      yaw = Math.atan2(temp1, temp2);
+    //update current angle
+    context.angle = yaw;
+    //rotate image
+    context.rotate(context);
   }
-
 });
