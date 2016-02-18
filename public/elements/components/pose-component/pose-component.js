@@ -10,7 +10,7 @@ var PoseComponent = Polymer({
   properties: frontendInterface.buildComponentPolymerProps({
     label: String,
     angle: Number,
-    rad: Number,
+    rad: Number
   }),
 
   /**
@@ -35,7 +35,7 @@ var PoseComponent = Polymer({
     ctx.moveTo(rad, rad);
     ctx.lineTo(rad, 0);
     ctx.strokeStyle = 'red';
-    ctx.lineWidth = rad/10;
+    ctx.lineWidth = rad / 20;
     ctx.stroke();
     // save image
     tempCanvas = document.createElement("canvas");
@@ -60,12 +60,13 @@ var PoseComponent = Polymer({
     // Set up the canvas... 
       canvas = document.createElement('canvas');
     canvas.id     = "canvas";
-    canvas.width  = 100;
-    canvas.height = 100;
+    //should do something about style, also %
+    canvas.style.height  = '100%';
+    canvas.width  = canvas.height;
     this.rad = canvas.width / 2;
     canvas.style.position = "relative";
-    document.body.appendChild(canvas);
-    window.alert(document.getElementById('dis'));
+    Polymer.dom(this.root).appendChild(canvas);
+//    window.alert(document.getElementById('canvas'));
 
     /*
      * Subscribe to topic defined by HTML attribute / Polymer 
