@@ -101,7 +101,6 @@ var PoseComponent = Polymer({
       yaw = Math.atan2(temp1, temp2);
     //update current angle
     context.angle = yaw;
-    context.label = yaw.toString();
     //rotate image
     context.rotate(context);
   }
