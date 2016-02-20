@@ -8,8 +8,8 @@
 var PoseComponent = Polymer({
   is: "pose-component",
   properties: frontendInterface.buildComponentPolymerProps({
-    label: String,
     angle: Number,
+    canvas: Object,
     rad: Number
   }),
 
@@ -19,8 +19,7 @@ var PoseComponent = Polymer({
    * @param {Object} context - Stores a reference to the Polymer element
    */
   rotate: function (context) {
-    var canvas = document.getElementById('canvas'),
-      ctx = canvas.getContext("2d"),
+    var ctx = this.canvas.getContext("2d"),
       rad = this.rad,
       tempCanvas,
       tempCtx;
@@ -42,9 +41,7 @@ var PoseComponent = Polymer({
     tempCtx = tempCanvas.getContext("2d");
     tempCanvas.width = 2 * rad;
     tempCanvas.height = 2 * rad;
-    tempCtx.drawImage(canvas, 0, 0, 2 * rad, 2 * rad);
-    //clear
-    ctx.clearRect(0, 0, 2 * rad, 2 * rad);
+    tempCtx.drawImage(this.canvas, 0, 0, 2 * rad, 2 * rad);
     ctx.save();
     // center
     ctx.translate(rad, rad);
@@ -59,14 +56,14 @@ var PoseComponent = Polymer({
     var context = this,
     // Set up the canvas... 
       canvas = document.createElement('canvas');
-    canvas.id     = "canvas";
+    canvas.id = "canvas";
     //should do something about style, also %
     canvas.style.height  = '100%';
-    canvas.width  = canvas.height;
+    canvas.height  = canvas.width;
     this.rad = canvas.width / 2;
     canvas.style.position = "relative";
     Polymer.dom(this.root).appendChild(canvas);
-//    window.alert(document.getElementById('canvas'));
+    this.canvas = canvas;
 
     /*
      * Subscribe to topic defined by HTML attribute / Polymer 
@@ -95,9 +92,6 @@ var PoseComponent = Polymer({
    * Recieve pose stamped message from the subscribed topic 
    * and set Polymer property 'angle' to the yaw.
    * NOTE: 0 deg. is NORTH
-   * @function
-   * @param {Object} context - Stores a reference to the Polymer element
-   * @param {Object} message - Message data from topic
    */
   handleMessage: function (context, message) {
     // message orientation is a quaternion. convert to euler - yaw
@@ -107,6 +101,7 @@ var PoseComponent = Polymer({
       yaw = Math.atan2(temp1, temp2);
     //update current angle
     context.angle = yaw;
+    context.label = yaw.toString();
     //rotate image
     context.rotate(context);
   }
