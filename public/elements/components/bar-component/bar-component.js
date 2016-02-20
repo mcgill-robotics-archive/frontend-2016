@@ -6,7 +6,7 @@
 
 'use strict';
 
-Polymer({
+var BarComponent = Polymer({
   is: "bar-component",
 
   /*
@@ -21,6 +21,21 @@ Polymer({
     max: Number,
     step: Number
   }),
+
+  /**
+   * Polymer constructor. Copy initialization properties to the internal
+   * component object.
+   * @function
+   * @param {Object} props - Contains initialization properties for component.
+   */
+  factoryImpl: function (props) {
+    this.topic = props.topic;
+    this.messageType = props.messageTypes;
+    this.label = props.label;
+    this.min = props.min;
+    this.max = props.max;
+    this.step = props.step;
+  },
 
   /**
    * Handle topic listening, related response behaviours and any

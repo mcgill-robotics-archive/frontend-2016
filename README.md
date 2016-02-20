@@ -10,10 +10,14 @@ Build Status
 [dev]: http://dev.mcgillrobotics.com:8080/buildStatus/icon?job=frontend_dev
 [dev url]: http://dev.mcgillrobotics.com:8080/job/frontend_dev
 
+[all]: http://dev.mcgillrobotics.com:8080/buildStatus/icon?job=frontend_all
+[all url]: http://dev.mcgillrobotics.com:8080/job/frontend_all
+
 | Branch   | Status                  |
 |:--------:|:-----------------------:|
 | `master` | [![master]][master url] |
 | `dev`    | [![dev]][dev url]       |
+| `all`    | [![all]][all url]       |
 
 Setup
 -----
@@ -41,14 +45,20 @@ Launching
 To run in production, use the following command: 
 	
 ```bash
-roslaunch frontend frontend.launch
+roslaunch frontend frontend.launch layout:=foo
 ```
+
+where `foo` is the name of the desired jade layout file.
 
 To run in a development environment, use the following command:
 
 ```bash
 roslaunch frontend frontend-test.launch
 ```
+
+This will run with the jade layout file `test.jade`. One can optionally use an
+extra argument specifying a layout file by appending `layout:=foo` where `foo`
+is the name of the desired jade layout file to test.
 
 Testing
 -------

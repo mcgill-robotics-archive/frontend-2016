@@ -1,0 +1,48 @@
+<link rel="import" href="/lib/polymer/polymer.html">
+
+<dom-module id="base-widget">
+  <style>
+    :host {
+      display: inline-block;
+      position: absolute;
+      box-sizing: border-box;
+      
+      top: var(--widget-top);
+      left: var(--widget-left);
+
+      vertical-align: top;
+
+      width: var(--widget-width);
+      height: var(--widget-height);
+      
+      font-size: 0;
+    }
+    paper-card {
+      display: block;
+      font-size: 1rem;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+    }
+    .componentContainer {
+      overflow-y: auto;
+    }
+  </style>
+  <template>
+    <div>
+      <paper-card heading="[[title]]">
+        <div class="card-content">
+          <div class="componentContainer">
+            <content></content>
+          </div>
+        </div>
+      </paper-card>
+    </div>
+  </template>
+
+  <script type="text/javascript" src="/elements/base-widget/base-widget.js">
+  </script>
+</dom-module>
+

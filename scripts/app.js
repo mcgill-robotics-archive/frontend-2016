@@ -12,7 +12,9 @@ var express = require('express'),
   fs = require('fs');
 
 var app = express();
-var appBasePath = __dirname + '/..';
+var APP_BASE_PATH = __dirname + '/..';
+
+var layout = process.argv[2] || 'test';
 
 /**
  * Compile stylus files and place them at the given path
@@ -25,26 +27,26 @@ function compileStylus(str, path) {
 }
 
 app.use(stylus.middleware({
-  src: appBasePath + '/assets',
-  dest: appBasePath + '/public',
+  src: APP_BASE_PATH + '/assets',
+  dest: APP_BASE_PATH + '/public',
   compile: compileStylus
 }));
 
-app.use(express.static(appBasePath + '/public'));
+app.use(express.static(APP_BASE_PATH + '/public'));
 
 /**
  * Serve bower components directory's static contents under the virtual path
  * prefix '/lib' so that any file under '/bower_components/foo/bar' will be
  * accessible as '/lib/foo/bar' in any browser-side references
  */
-app.use('/lib', express.static(appBasePath + '/bower_components'));
+app.use('/lib', express.static(APP_BASE_PATH + '/bower_components'));
 
 app.set('view engine', 'jade');
-app.set('views', appBasePath + '/views');
+app.set('views', APP_BASE_PATH + '/views');
 
 app.get('/', function (req, res) {
   // Render view template 'index.jade'
-  res.render('index');
+  res.render('layouts/' + layout);
 });
 
 /*
@@ -55,7 +57,7 @@ app.get('/component/:type/', function (req, res) {
   // Fetch the component type from the URL parameters
   var componentType = req.params.type + '-component';
 
-  fs.readFile(appBasePath +
+  fs.readFile(APP_BASE_PATH +
     '/public/elements/components/' + componentType +
     '/test/index.html', 'utf8', function (err, data) {
       /* 
