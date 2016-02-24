@@ -16,9 +16,10 @@ html
         var viewer = new MJPEGCANVAS.Viewer({
           divID : 'mjpeg',
           host : 'localhost',
+          port : '8008',
           width : 640,
           height : 480,
-          topic : '/wide_stereo/left/image_color'
+          topic : '/camera_front_left/image_rect_color'
         });
       }
 
