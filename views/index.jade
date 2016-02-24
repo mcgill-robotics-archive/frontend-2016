@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    link(rel = 'stylesheet', media = 'screen', 
+    link(rel = 'stylesheet', media = 'screen',
       href = '/stylesheets/screen.css')
     link(rel = 'import', href = '/lib/polymer/polymer.html')
 
@@ -19,8 +19,24 @@ html
         'topBarId': 'topBar'
       });
 
+      /**
+       * Setup all visualization elements when the page is loaded.
+       */
+      function initializeVideoComponents(topic) {
+        // Create the main viewer.
+        var viewer = new MJPEGCANVAS.Viewer({
+          divID : topic,
+          host : 'localhost',
+          port : '8008',
+          width : 640,
+          height : 480,
+          topic : topic
+        });
+      }
+
       window.onload = function () {
         frontendInterface.initialize();
+        initializeVideoComponents('/camera_front_left/image_rect_color');
       }
 
     link(rel = 'import', href = '/lib/iron-icons/iron-icons.html')
@@ -30,9 +46,9 @@ html
     link(rel = 'import', href = '/lib/paper-tabs/paper-tabs.html')
     link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
     link(rel = 'import', href = '/elements/base-widget/base-widget.html')
-    link(rel = 'import', 
+    link(rel = 'import',
       href = '/elements/components/text-component/text-component.html')
-    link(rel = 'import', 
+    link(rel = 'import',
       href = '/elements/components/bar-component/bar-component.html')
 
   body
@@ -40,7 +56,7 @@ html
       paper-tab Main Page
       paper-tab Second Page
       paper-tab Third Page
-    div#interfaceContainer
+    #interfaceContainer
       block layout
 
     script(type = 'text/javascript'
