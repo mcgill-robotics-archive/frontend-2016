@@ -17,6 +17,7 @@ var timerComponent = Polymer({
    * @function
    */
   attached: function () {
+    var context = this;
     // set up the end time
     var countdownMins = 20;
     var currentTime = Date.parse(new Date());
@@ -24,9 +25,9 @@ var timerComponent = Polymer({
 
     // calculate the remaining time
     function timeRemain(deadline){
-      var totalTime = Date.parse(deadline) - Date.parse(new Date());
-      seconds = Math.floor((t / 1000) % 60 );
-      minutes = Math.floor((t / 1000 / 60) % 60 );
+      var t = Date.parse(deadline) - Date.parse(new Date());
+      var seconds = Math.floor((t / 1000) % 60 );
+      var minutes = Math.floor((t / 1000 / 60) % 60 );
       return {
         'minutes': minutes,
         'seconds': seconds
@@ -35,15 +36,11 @@ var timerComponent = Polymer({
 
     // initialize the timer
     function initializeTimer(id, deadline){
-      var timer = document.getElementById(id);
-      var minutesSpan = timer.querySelector('.minutes');
-      var secondsSpan = timer.querySelector('.seconds');
-
       // function used to avoid delay
       function updateTimer(){
         var t = timeRemain(deadline);
-        minutesSpan.innerHTML = ('0' + t.minutes).slice(-2); // add leading zeros
-        secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+        context.minutes = ('0' + t.minutes).slice(-2); // add leading zeros
+        context.seconds = ('0' + t.seconds).slice(-2);
         if(t.total<=0){
           clearInterval(timeinterval);
         }
