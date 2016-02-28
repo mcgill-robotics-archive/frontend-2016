@@ -29,6 +29,7 @@ var PoseComponent = Polymer({
     this.drawPoseLine(canvasContext, length);
     // rotate
     this.rotateToAngle(polymerContext, canvasContext, length);
+    this.addVisualCues(polymerContext, canvasContext);
   },
 
   attached: function () {
@@ -76,6 +77,7 @@ var PoseComponent = Polymer({
     polymerContext.angle = yaw;
     //rotate image
     polymerContext.rotate(polymerContext);
+
   },
 
 
@@ -85,6 +87,23 @@ var PoseComponent = Polymer({
    * @param {Object} polymerContext - Stores a reference to the Polymer element
    */
   initCanvas: function (polymerContext) {
+    // Set up the canvas 
+    var canvas = document.createElement('canvas');
+    canvas.id = "canvas";
+    canvas.style.height  = '100%';
+    canvas.height  = canvas.width;
+    this.compassRadius = canvas.width / 2;
+    canvas.style.position = "relative";
+    Polymer.dom(polymerContext.root).appendChild(canvas);
+    this.canvas = canvas;
+  },
+
+
+  /** Create Numerical angle display
+   * @function
+   * @param {Object} polymerContext - Stores a reference to the Polymer element
+   */
+  initAngleDisplayText: function (polymerContext) {
     // Set up the canvas 
     var canvas = document.createElement('canvas');
     canvas.id = "canvas";
@@ -147,7 +166,73 @@ var PoseComponent = Polymer({
     canvasContext.translate(-length, -length);
     canvasContext.drawImage(tempCanvas, 0, 0);
     canvasContext.restore();
+  },
+
+ /**
+   * Draw lines and label to 0, 90, 180  and 270 degree 
+   * locations on the compass canvas
+   * @function
+   * @param {Object} polymerContext - Stores a reference to the polymer element
+   * @param {Object} canvasContext - Stores a reference to the canvas element
+   */
+  addVisualCues: function (polymerContext, canvasContext) {
+    this.addLines(polymerContext, canvasContext);
+    this.labelAngles(polymerContext, canvasContext);
+  },
+
+ /**
+   * Draw marklines to 0, 90, 180  and 270 degree 
+   * locations on the compass canvas
+   * @function
+   * @param {Object} polymerContext - Stores a reference to the polymer element
+   * @param {Object} canvasContext - Stores a reference to the canvas element
+   */
+  addLines: function (polymerContext, canvasContext) {
+    var max = polymerContext.compassRadius,
+      start = (1 / 8) * max,
+      maxOffset = (2 * max) - start;
+    this.drawLine(polymerContext, canvasContext, max, 0, max, start);
+    this.drawLine(polymerContext, canvasContext, max, 2 * max, max, maxOffset);
+    this.drawLine(polymerContext, canvasContext, 0, max, start, max);
+    this.drawLine(polymerContext, canvasContext, 2 * max, max, maxOffset, max);
+  },
+
+/**
+   * Label angles at 0, 90, 180  and 270 degree locations on the compass canvas
+   * @function
+   * @param {Object} polymerContext - Stores a reference to the polymer element
+   * @param {Object} canvasContext - Stores a reference to the canvas element
+   */
+  labelAngles: function (polymerContext, canvasContext) {
+    var max = polymerContext.compassRadius,
+      start = (1 / 4) * max,
+      maxOffset = (2 * max) - start;
+    canvasContext.fillStyle = 'red';
+    canvasContext.font = '20pt Calibri';
+    canvasContext.textBaseline = 'middle';
+    canvasContext.textAlign = "center";
+    canvasContext.fillText("0", max, start);
+    canvasContext.fillText("90 ", maxOffset, max);
+    canvasContext.fillText("180", max, maxOffset);
+    canvasContext.fillText("270", start, max);
+  },
+
+ /**
+   * Draw line from (x1,y1) to (x2,y2) canvas
+   * @function
+   * @param {Object} polymerContetx - Stores a reference to the polymer element
+   * @param {Object} canvasContext - Stores a reference to the canvas element
+   * @param {Number} x1 x poistion of line start
+   * @param {Number} y1 y poistion of line start
+   * @param {Number} x2 x poistion of line end
+   * @param {Number} y2 y poistion of line end
+   */
+  drawLine: function (polymerContext, canvasContext, x1, y1, x2, y2) {
+    canvasContext.beginPath();
+    canvasContext.moveTo(x1, y1);
+    canvasContext.lineTo(x2, y2);
+    canvasContext.strokeStyle = 'white';
+    canvasContext.lineWidth = polymerContext.compassRadius / 40;
+    canvasContext.stroke();
   }
-
-
 });
