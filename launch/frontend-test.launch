@@ -15,4 +15,7 @@
   <node pkg="frontend" name="frontend_test_publisher" type="publisher.py">
   </node>
 
+  <node pkg="frontend" name="frontend_test_pose_publisher" type="pose_publisher.py">
+  </node>
+
 </launch>
