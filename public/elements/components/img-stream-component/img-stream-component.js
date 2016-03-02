@@ -1,12 +1,12 @@
 /**
- * @file Defines behaviours for bar component.
+ * @file Defines behaviours for image feed components.
  */
 
 /*global Polymer, ROSLIB, frontendInterface, MJPEGCANVAS */
 
 'use strict';
 
-var BarComponent = Polymer({
+var ImageFeedComponent = Polymer({
   is: "img-feed-component",
 
   /*
@@ -99,6 +99,11 @@ var BarComponent = Polymer({
         viewer;
 
       dimensions = this.uiSetupHelpers.resolveImageSize.call(this);
+
+      /*
+       * Behind the scenes, this takes the div with the specified div id, and
+       * sets up an mjpeg viewer inside it. The topic specified is displayed.
+       */
       viewer = new MJPEGCANVAS.Viewer({
         divID : this.topic,
         host : 'localhost',
