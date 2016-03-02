@@ -10,9 +10,6 @@ Build Status
 [dev]: http://dev.mcgillrobotics.com:8080/buildStatus/icon?job=frontend_dev
 [dev url]: http://dev.mcgillrobotics.com:8080/job/frontend_dev
 
-[all]: http://dev.mcgillrobotics.com:8080/buildStatus/icon?job=frontend_all
-[all url]: http://dev.mcgillrobotics.com:8080/job/frontend_all
-
 | Branch   | Status                  |
 |:--------:|:-----------------------:|
 | `master` | [![master]][master url] |
@@ -27,10 +24,10 @@ Setup
 2. In the src directory of your catkin workspace, clone the frontend 
 repository.
 
-3. Run the following to install the `rosbridge_server` dependency: 
+3. Run the following to install the `rosbridge_server` and `web_video_server` dependencies: 
 	
    ```bash
-   sudo apt-get install ros-jade-rosbridge-server
+   sudo apt-get install ros-jade-rosbridge-server ros-jade-web-video-server 
    ```
 
 4. In the frontend directory, run `npm install` to install all required npm 
