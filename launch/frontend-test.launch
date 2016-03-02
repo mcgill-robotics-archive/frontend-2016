@@ -16,7 +16,12 @@
     name="frontend" output="screen">
   </node>
 
-  <!-- Test Publisher -->
+  <!-- Test Numeric Publisher -->
   <node pkg="frontend" name="frontend_test_publisher" type="publisher.py">
   </node>
+
+  <!-- Test Pose Publisher -->
+  <node pkg="frontend" name="frontend_test_pose_publisher" type="pose_publisher.py">
+  </node>
+
 </launch>
