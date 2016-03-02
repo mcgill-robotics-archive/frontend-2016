@@ -2,7 +2,7 @@
  * @file Defines behaviours for bar component.
  */
 
-/*global Polymer, ROSLIB, frontendInterface */
+/*global Polymer, ROSLIB, frontendInterface, MJPEGCANVAS */
 
 'use strict';
 
@@ -44,7 +44,7 @@ var BarComponent = Polymer({
   detached: function () {
     this.topicListener.unsubscribe();
   },
-  
+
   /* Contains all ui setup methods not directly used by Polymer. */
   uiSetupHelpers : {
 
@@ -61,6 +61,7 @@ var BarComponent = Polymer({
         height : 480,
         topic : this.topic
       });
+      return viewer;
     }
   }
 });
