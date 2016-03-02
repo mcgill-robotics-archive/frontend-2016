@@ -7,7 +7,7 @@ block layout
   base-widget(width = '4', height = '8', x = '8', y = '0', title = 'Test 2')
     text-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
       label = 'Number: ')
-  base-widget(width = '8', height = '8', x = '0', y = '4', title = 'Test 3')
-    div(id='/camera_front_left/image_rect_color')
+  base-widget(width = '8', height = '12', x = '0', y = '4', title = 'Test 3')
+    img-feed-component(topic='/camera_front_left/image_rect_color')
   base-widget(width = '4', height = '4', x = '8', y = '8', title = 'Test 4')
 

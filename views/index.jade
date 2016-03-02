@@ -22,24 +22,9 @@ html
         'topBarId': 'topBar'
       });
 
-      /**
-       * Setup all visualization elements when the page is loaded.
-       */
-      function initializeVideoComponents(topic) {
-        // Create the main viewer.
-        var viewer = new MJPEGCANVAS.Viewer({
-          divID : topic,
-          host : 'localhost',
-          port : '8008',
-          width : 640,
-          height : 480,
-          topic : topic
-        });
-      }
 
       window.onload = function () {
         frontendInterface.initialize();
-        initializeVideoComponents('/camera_front_left/image_rect_color');
       }
 
     link(rel = 'import', href = '/lib/iron-icons/iron-icons.html')
@@ -53,6 +38,8 @@ html
       href = '/elements/components/text-component/text-component.html')
     link(rel = 'import',
       href = '/elements/components/bar-component/bar-component.html')
+    link(rel = 'import', href = 
+	'/elements/components/img-stream-component/img-stream-component.html')
 
   body
     paper-tabs#topBar

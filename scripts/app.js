@@ -72,10 +72,6 @@ app.get('/component/:type/', function (req, res) {
     });
 });
 
-app.get('/test-video/', function(req, res) {
-  res.render('video-test');
-});
-
 
 var server = app.listen(3000, '0.0.0.0', function () {
   var host = server.address().address,
