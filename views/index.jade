@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    link(rel = 'stylesheet', media = 'screen', 
+    link(rel = 'stylesheet', media = 'screen',
       href = '/stylesheets/screen.css')
     link(rel = 'import', href = '/lib/polymer/polymer.html')
 
@@ -9,15 +9,19 @@ html
       src = '/lib/eventemitter2/lib/eventemitter2.js')
     script(type = 'text/javascript', src = '/lib/roslib/build/roslib.min.js')
 
+    script(type="text/javascript", src=
+      '/lib/mjpegcanvas/build/mjpegcanvas.min.js')
+
     script(type = 'text/javascript', src = '/scripts/interface.js')
 
     script(type = 'text/javascript').
       var frontendInterface = new MRFrontendInterface({
         'host': 'localhost',
-        'port': 8080,
+        'port': 8008,
         'containerId': 'interfaceContainer',
         'topBarId': 'topBar'
       });
+
 
       window.onload = function () {
         frontendInterface.initialize();
@@ -30,10 +34,12 @@ html
     link(rel = 'import', href = '/lib/paper-tabs/paper-tabs.html')
     link(rel = 'import', href = '/lib/paper-progress/paper-progress.html')
     link(rel = 'import', href = '/elements/base-widget/base-widget.html')
-    link(rel = 'import', 
+    link(rel = 'import',
       href = '/elements/components/text-component/text-component.html')
-    link(rel = 'import', 
+    link(rel = 'import',
       href = '/elements/components/bar-component/bar-component.html')
+    link(rel = 'import', href = 
+      '/elements/components/img-stream-component/img-stream-component.html')
     link(rel = 'import', 
       href = '/elements/components/pose-component/pose-component.html')
 
@@ -42,7 +48,7 @@ html
       paper-tab Main Page
       paper-tab Second Page
       paper-tab Third Page
-    div#interfaceContainer
+    #interfaceContainer
       block layout
 
     script(type = 'text/javascript'

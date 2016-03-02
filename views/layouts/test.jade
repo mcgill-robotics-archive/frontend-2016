@@ -4,10 +4,17 @@ block layout
   base-widget(width = '8', height = '4', x = '0', y = '0', title = 'Test 1')
     bar-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
       label = 'Number', min = '0', max = '1000', step = '1')
-  base-widget(width = '4', height = '8', x = '8', y = '0', title = 'Test 2')
+  
+  base-widget(width = '4', height = '4', x = '8', y = '0', title = 'Test 2')
     text-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
       label = 'Number: ')
-  base-widget(width = '8', height = '8', x = '0', y = '4', title = 'Test 3')
-    pose-component(topic = '/test_pose_topic', message-type = 'geometry_msgs/PoseStamped')
-  base-widget(width = '4', height = '4', x = '8', y = '8', title = 'Test 4')
 
+  base-widget(width = '4', height = '4', x = '0', y = '4', title = 'Compass')
+    pose-component(topic = '/test_pose_topic', 
+      message-type = 'geometry_msgs/PoseStamped')
+  
+  base-widget(width = '8', height = '12', x = '4', y = '4', 
+    title = 'camera_front_left/image_rect_color')
+    
+    img-feed-component(topic = '/camera_front_left/image_rect_color', 
+      fullness = '0.80', aspect-ratio = '0.74')
