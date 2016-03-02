@@ -56,7 +56,7 @@ var BarComponent = Polymer({
       var viewer = new MJPEGCANVAS.Viewer({
         divID : this.topic,
         host : 'localhost',
-        port : '8008',
+        port : '8080',
         width : 640,
         height : 480,
         topic : this.topic

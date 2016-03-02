@@ -2,7 +2,7 @@
   
   <!-- rosbridge -->
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
-    <arg name="port" value="8080"/>
+    <arg name="port" value="8008"/>
   </include>
 
   <!-- Web Video Server-->
