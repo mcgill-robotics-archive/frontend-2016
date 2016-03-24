@@ -12,9 +12,14 @@ block layout
   base-widget(width = '4', height = '4', x = '0', y = '4', title = 'Compass')
     pose-component(topic = '/test_pose_topic', 
       message-type = 'geometry_msgs/PoseStamped')
+
+  base-widget(width = '4', height = '4', x = '0', y = '8', title = 'Plot')
+    plot-component(topic = '/test_plot_topic', unique-id = 'testPlot',
+      message-type = 'geometry_msgs/Point')
   
   base-widget(width = '8', height = '12', x = '4', y = '4', 
     title = 'camera_front_left/image_rect_color')
     
     img-feed-component(topic = '/camera_front_left/image_rect_color', 
       fullness = '0.80', aspect-ratio = '0.74')
+
