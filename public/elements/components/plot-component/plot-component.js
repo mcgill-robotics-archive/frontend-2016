@@ -2,7 +2,7 @@
  * @file Defines behaviours for plot component.
  */
 
-/*global Polymer, ROSLIB, frontendInterface */
+/*global Polymer, ROSLIB, Plotly, frontendInterface */
 
 'use strict';
 
@@ -52,8 +52,8 @@ var PlotComponent = Polymer({
     console.log(this.topic);
 
     Plotly.plot(document.getElementById(this.uniqueID), [{
-        x: [1, 2, 3, 4, 5],
-        y: [1, 2, 4, 8, 16]
+      x: [1, 2, 3, 4, 5],
+      y: [1, 2, 4, 8, 16]
     }], { margin: {t: 0} });
   },
 
@@ -73,6 +73,7 @@ var PlotComponent = Polymer({
    */
   handleMessage: function (message) {
     // Handle adding new value to plot element
+    console.log(message);
   }
 });
 
