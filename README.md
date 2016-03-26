@@ -24,10 +24,11 @@ Setup
 2. In the src directory of your catkin workspace, clone the frontend 
 repository.
 
-3. Run the following to install the `rosbridge_server` and `web_video_server` dependencies: 
+3. Run the following to install all ROS package dependencies: 
 	
    ```bash
-   sudo apt-get install ros-jade-rosbridge-server ros-jade-web-video-server 
+   rosdep update
+   rosdep install frontend
    ```
 
 4. In the frontend directory, run `npm install` to install all required npm 
