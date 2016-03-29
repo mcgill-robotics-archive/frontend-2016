@@ -10,11 +10,21 @@ block layout
       label = 'Number: ')
 
   base-widget(width = '4', height = '4', x = '0', y = '4', title = 'Compass')
-    pose-component(topic = '/test_pose_topic', 
+    pose-component(topic = '/test_pose_topic',
       message-type = 'geometry_msgs/PoseStamped')
   
-  base-widget(width = '8', height = '12', x = '4', y = '4', 
+  base-widget(width = '4', height = '4', x = '4', y = '4', title = '3D pose')
+    td-pose-component(topic = '/test_pose_topic',
+      message-type = 'geometry_msgs/PoseStamped')
+
+
+  base-widget(width = '8', height = '12', x = '8', y = '4',
     title = 'camera_front_left/image_rect_color')
-    
-    img-feed-component(topic = '/camera_front_left/image_rect_color', 
+
+    img-feed-component(topic = '/camera_front_left/image_rect_color',
       fullness = '0.80', aspect-ratio = '0.74')
+
+
+
+
+
