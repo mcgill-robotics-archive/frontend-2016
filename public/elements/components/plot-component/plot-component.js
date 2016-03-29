@@ -15,7 +15,8 @@ var PlotComponent = Polymer({
    * JavaScript types.
    */
   properties: frontendInterface.buildComponentPolymerProps({
-    uniqueID: String
+    uniqueId: String,
+    maxPoints: Number
   }),
 
   /**
@@ -27,7 +28,8 @@ var PlotComponent = Polymer({
   factoryImpl: function (props) {
     this.topic = props.topic;
     this.messageType = props.messageTypes;
-    this.uniqueID = props.uniqueId;
+    this.uniqueId = props.uniqueId;
+    this.maxPoints = props.maxPoints || 50;
   },
 
   /**
@@ -49,12 +51,16 @@ var PlotComponent = Polymer({
     // Set the message handling function and pass the Polymer element context.
     this.topicListener.subscribe(this.handleMessage.bind(this));
 
-    console.log(this.topic);
+    this.data = [{
+      x: [],
+      y: []
+    }];
 
-    Plotly.plot(document.getElementById(this.uniqueID), [{
-      x: [1, 2, 3, 4, 5],
-      y: [1, 2, 4, 8, 16]
-    }], { margin: {t: 0} });
+    this.plotContainer = document.getElementById(this.uniqueId);
+
+    Plotly.plot(this.plotContainer, this.data, {
+      margin: {t: 0, b: 10, l: 10, r: 10}
+    });
   },
 
   /**
@@ -73,7 +79,15 @@ var PlotComponent = Polymer({
    */
   handleMessage: function (message) {
     // Handle adding new value to plot element
-    console.log(message);
+    this.plotContainer.data[0].x.push(message.x);
+    this.plotContainer.data[0].y.push(message.y);
+
+    if (this.plotContainer.data[0].x.length > this.maxPoints) {
+      this.plotContainer.data[0].x.shift();
+      this.plotContainer.data[0].y.shift();
+    }
+
+    Plotly.redraw(this.plotContainer);
   }
 });
 

@@ -10,7 +10,7 @@ def testPublish():
 
     # Create publisher for test text topic
     pub = rospy.Publisher("/test_plot_topic", Point, queue_size=1)
-    rate = rospy.Rate(1)
+    rate = rospy.Rate(3)
     count = 0
 
     while not rospy.is_shutdown():
