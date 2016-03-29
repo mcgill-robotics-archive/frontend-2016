@@ -29,7 +29,7 @@ var PoseComponent3D = Polymer({
     var polymerContext = this;
     this.width = 400;
     this.height = 400;
-    this.aspectRatio = this.width/this.height;
+    this.aspectRatio = this.width / this.height;
     this.init(polymerContext);
 
     // Subscribe to topic defined by HTML attribute / Polymer property 'topic'
@@ -54,9 +54,11 @@ var PoseComponent3D = Polymer({
   },
 
   /**
-   * Recieve pose stamped message from the subscribed topic
-   * and set Polymer property 'angle' to the yaw.
-   * NOTE: 0 deg. is NORTH
+   * Recieve pose stamped message from the subscribed topic,
+   * rotate arrow to the quaternion contained in the received message
+   * and set Polymer property 'xLabel' to the euler.x,
+   * 'yLabel' to euler.y and 'zLabel' to euler.z.
+   *
    * @function
    * @param {Object} polymerContext - Stores a reference to the Polymer element
    * @param {Object} message - pose stamped message containing updated angle
@@ -66,31 +68,39 @@ var PoseComponent3D = Polymer({
     polymerContext.rotate(polymerContext, q);
   },
 
+    /**
+     * Create the Threejs scene to contain the 3D pose component. Add XYZ axes
+     * @param polymerContext - Stores a reference to the polymer element
+     */
   init: function (polymerContext) {
-    console.log("init");
     polymerContext.camera = new THREE.PerspectiveCamera(75,
         polymerContext.aspectRatio, 1, 1000);
     polymerContext.camera.position.z = polymerContext.width;
     polymerContext.scene = new THREE.Scene();
     var dir = new THREE.Vector3(1, 0, 0),
       origin = new THREE.Vector3(0, 0, 0),
-      length = polymerContext.width/2,
+      length = polymerContext.width / 2,
       hexColour = 0xfff000,
-      axisHelper = new THREE.AxisHelper(polymerContext.width/4),
+      axisHelper = new THREE.AxisHelper(polymerContext.width / 4),
       dm;
     polymerContext.scene.add(axisHelper);
     polymerContext.arrow = new THREE.ArrowHelper(dir,
         origin, length, hexColour);
     polymerContext.scene.add(polymerContext.arrow);
     polymerContext.renderer = new THREE.WebGLRenderer();
-    polymerContext.renderer.setSize(polymerContext.width, polymerContext.height);
+    polymerContext.renderer.setSize(polymerContext.width,
+        polymerContext.height);
     dm = polymerContext.renderer.domElement;
     Polymer.dom(polymerContext.root).appendChild(dm);
     polymerContext.controls = new THREE.OrbitControls(polymerContext.camera,
         polymerContext.renderer.domElement);
-    console.log(polymerContext.root);
   },
 
+    /**
+     * Updates the arrow object
+     * @param polymerContext Stores a reference to the polymer element
+     * @param q quaternion value of current orientation
+     */
   rotate: function (polymerContext, q) {
     var dir, rotation;
     dir = new THREE.Vector3(1, 0, 0);
@@ -100,16 +110,17 @@ var PoseComponent3D = Polymer({
     dir.applyEuler(rotation);
     polymerContext.arrow.setDirection(dir);
     polymerContext.renderer.render(polymerContext.scene, polymerContext.camera);
-      polymerContext.updateLabels(polymerContext, rotation);
+    polymerContext.updateLabels(polymerContext, rotation);
   },
 
-  updateLabels: function(polymerContext, rotation){
-      console.log(rotation._x.toString());
-      polymerContext.labelX = rotation._x.toString();
-      polymerContext.labelY = rotation._y.toString();
-      polymerContext.labelZ = rotation._z.toString();
-
-
-
+    /**
+     * Updates the x,y,z, values being displayed
+     * @param polymerContext - Stores a reference to the polymer element
+     * @param rotation - the euler value of the quaternion from the message
+     */
+  updateLabels: function (polymerContext, rotation) {
+    polymerContext.labelX = rotation.x.toString();
+    polymerContext.labelY = rotation.y.toString();
+    polymerContext.labelZ = rotation.z.toString();
   }
 });
