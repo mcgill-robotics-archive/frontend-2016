@@ -49,6 +49,10 @@ app.get('/', function (req, res) {
   res.render('layouts/' + layout);
 });
 
+app.get('/homepage', function (req, res) {
+  res.render('homepage');
+});
+
 /*
  * Handle any requests for a component and return the template 
  * '[type]-component'; pass the component name to the template.
