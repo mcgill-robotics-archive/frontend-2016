@@ -89,11 +89,13 @@ var PoseComponent = Polymer({
    * @param {Object} polymerContext - Reference to the Polymer element
    */
   initCanvas: function (polymerContext) {
-    var canvas = document.createElement('canvas'); // Set up canvas
-    canvas.style.height  = '100%';
-    canvas.height  = canvas.width;
-    this.compassRadius = canvas.width / 2;
-    canvas.style.position = "relative";
+    var canvas = document.createElement('canvas'), // Set up canvas
+      container = polymerContext.parentElement.parentElement.parentElement;
+    this.compassRadius =
+        ((Math.min(container.clientHeight,
+            container.clientWidth)) / 2) - 50;
+    canvas.height = 2 * this.compassRadius;
+    canvas.width = 2 * this.compassRadius;    canvas.style.position = "relative";
     Polymer.dom(polymerContext.root).appendChild(canvas);
     this.canvas = canvas;
   },

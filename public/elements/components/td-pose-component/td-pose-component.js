@@ -2,7 +2,7 @@
  * Define behaviour for 3D pose component
  */
 
-/*global Polymer, ROSLIB, frontendInterface */
+/*global Polymer, ROSLIB, frontendInterface, threejs */
 
 'use strict';
 
@@ -26,9 +26,11 @@ var PoseComponent3D = Polymer({
    * @function
    */
   attached: function () {
-    var polymerContext = this;
-    this.width = 400;
-    this.height = 400;
+    var polymerContext = this,
+      container = polymerContext.parentElement.parentElement.parentElement;
+
+    this.width = container.clientWidth - 40;
+    this.height = container.clientHeight - 150;
     this.aspectRatio = this.width / this.height;
     this.init(polymerContext);
 
@@ -73,15 +75,17 @@ var PoseComponent3D = Polymer({
      * @param polymerContext - Stores a reference to the polymer element
      */
   init: function (polymerContext) {
+
     polymerContext.camera = new THREE.PerspectiveCamera(75,
-        polymerContext.aspectRatio, 1, 1000);
+      polymerContext.aspectRatio, 1, 1000);
     polymerContext.camera.position.z = polymerContext.width;
     polymerContext.scene = new THREE.Scene();
     var dir = new THREE.Vector3(1, 0, 0),
       origin = new THREE.Vector3(0, 0, 0),
-      length = polymerContext.width / 2,
+      length = 2 * ((Math.min(polymerContext.width,
+              polymerContext.height)) / 3),
       hexColour = 0xfff000,
-      axisHelper = new THREE.AxisHelper(polymerContext.width / 4),
+      axisHelper = new THREE.AxisHelper(polymerContext.width / 2),
       dm;
     polymerContext.scene.add(axisHelper);
     polymerContext.arrow = new THREE.ArrowHelper(dir,
