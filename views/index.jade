@@ -9,15 +9,19 @@ html
       src = '/lib/eventemitter2/lib/eventemitter2.js')
     script(type = 'text/javascript', src = '/lib/roslib/build/roslib.min.js')
 
+    script(type="text/javascript", src=
+      '/lib/mjpegcanvas/build/mjpegcanvas.min.js')
+
     script(type = 'text/javascript', src = '/scripts/interface.js')
 
     script(type = 'text/javascript').
       var frontendInterface = new MRFrontendInterface({
         'host': 'localhost',
-        'port': 8080,
+        'port': 8008,
         'containerId': 'interfaceContainer',
         'topBarId': 'topBar'
       });
+
 
       window.onload = function () {
         frontendInterface.initialize();
@@ -36,13 +40,17 @@ html
       href = '/elements/components/bar-component/bar-component.html')
     link(rel = 'import',
       href = '/elements/components/timer-component/timer-component.html')
+    link(rel = 'import', href = 
+      '/elements/components/img-stream-component/img-stream-component.html')
+    link(rel = 'import', 
+      href = '/elements/components/pose-component/pose-component.html')
 
   body
     paper-tabs#topBar
       paper-tab Main Page
       paper-tab Second Page
       paper-tab Third Page
-    div#interfaceContainer
+    #interfaceContainer
       block layout
 
     script(type = 'text/javascript'

@@ -2,8 +2,13 @@
   
   <!-- rosbridge -->
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
-    <arg name="port" value="8080"/>
+    <arg name="port" value="8008"/>
   </include>
+
+  <!-- Web Video Server-->
+  <node pkg="web_video_server" type="web_video_server" name="web_video_server" 
+    output="screen">
+  </node>
 
   <!-- Main Application -->
   <arg name="layout" default="test" />
@@ -11,8 +16,12 @@
     name="frontend" output="screen">
   </node>
 
-  <!-- Test Publisher -->
+  <!-- Test Numeric Publisher -->
   <node pkg="frontend" name="frontend_test_publisher" type="publisher.py">
+  </node>
+
+  <!-- Test Pose Publisher -->
+  <node pkg="frontend" name="frontend_test_pose_publisher" type="pose_publisher.py">
   </node>
 
 </launch>
