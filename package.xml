@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/simulation</url> -->
+  <url type="website">https://github.com/mcgill-robotics/frontend</url>
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
@@ -43,7 +43,8 @@
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>web_video_server</build_depend>
-  
+
+  <run_depend>nodejs</run_depend>
   <run_depend>rosbridge_server</run_depend>
   <run_depend>web_video_server</run_depend>
 
