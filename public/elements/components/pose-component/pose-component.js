@@ -56,14 +56,14 @@ var PoseComponent = Polymer({
     var q,
       numeratorYawEqn,
       denominatorYawEqn,
-      yaw;
+      yaw,
+      rotation;
 
     q = message.pose.orientation;
-    numeratorYawEqn = 2.0 * (q.x * q.y + q.w * q.z);
-    denominatorYawEqn = q.w * q.w - q.z * q.z - q.y * q.y + q.x * q.x;
-    yaw = Math.atan2(numeratorYawEqn, denominatorYawEqn);
+    rotation = new THREE.Euler(1, 0, 0, 'XYZ');
+    rotation.setFromQuaternion(q, 'XYZ');
 
-    polymerContext.angle = yaw; // Update current angle
+    polymerContext.angle = rotation.z; // Update current angle
     polymerContext.rotate(polymerContext); // Rotate image
 
   },
