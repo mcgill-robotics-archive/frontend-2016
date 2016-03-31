@@ -2,7 +2,7 @@
  * Define behaviour for 3D pose component
  */
 
-/*global Polymer, ROSLIB, frontendInterface, threejs */
+/*global Polymer, ROSLIB, frontendInterface, THREE, requestAnimationFrame*/
 
 'use strict';
 

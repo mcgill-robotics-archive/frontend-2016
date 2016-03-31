@@ -2,7 +2,7 @@
  * Define behaviour for 2D pose component
  */
 
-/*global Polymer, ROSLIB, frontendInterface */
+/*global Polymer, ROSLIB, frontendInterface, THREE */
 
 'use strict';
 
@@ -54,9 +54,6 @@ var PoseComponent = Polymer({
   handleMessage: function (polymerContext, message) {
     // message orientation is a quaternion. convert to euler - yaw
     var q,
-      numeratorYawEqn,
-      denominatorYawEqn,
-      yaw,
       rotation;
 
     q = message.pose.orientation;
@@ -93,9 +90,10 @@ var PoseComponent = Polymer({
       container = polymerContext.parentElement.parentElement.parentElement;
     this.compassRadius =
         ((Math.min(container.clientHeight,
-            container.clientWidth)) / 2) - 50;
+          container.clientWidth)) / 2) - 50;
     canvas.height = 2 * this.compassRadius;
-    canvas.width = 2 * this.compassRadius;    canvas.style.position = "relative";
+    canvas.width = 2 * this.compassRadius;
+    canvas.style.position = "relative";
     Polymer.dom(polymerContext.root).appendChild(canvas);
     this.canvas = canvas;
   },
