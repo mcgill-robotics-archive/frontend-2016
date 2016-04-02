@@ -106,10 +106,11 @@ var PoseComponent3D = Polymer({
      * @param q quaternion value of current orientation
      */
   rotate: function (polymerContext, q) {
-    var dir, rotation;
+    var dir, rotation, quaternion ;
     dir = new THREE.Vector3(1, 0, 0);
-    rotation = new THREE.Euler(1, 0, 0, 'XYZ');
-    rotation.setFromQuaternion(q, 'XYZ');
+    rotation = new THREE.Euler(0, 0, 0, 'XYZ');
+    quaternion = new THREE.Quaternion(q.x, q.y, q.z, q.w);
+    rotation.setFromQuaternion(quaternion.normalize(), 'XYZ');
     requestAnimationFrame(polymerContext.rotate);
     dir.applyEuler(rotation);
     polymerContext.arrow.setDirection(dir);
