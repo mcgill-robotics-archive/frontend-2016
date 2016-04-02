@@ -16,7 +16,8 @@ var PlotComponent = Polymer({
    */
   properties: frontendInterface.buildComponentPolymerProps({
     uniqueId: String,
-    maxPoints: Number
+    maxPoints: Number,
+    useTimeAsX: Boolean
   }),
 
   /**
@@ -30,6 +31,7 @@ var PlotComponent = Polymer({
     this.messageType = props.messageTypes;
     this.uniqueId = props.uniqueId;
     this.maxPoints = props.maxPoints || 50;
+    this.useTimeAsX = (props.useTimeAsX.toLowerCase() === 'true');
   },
 
   /**
@@ -59,7 +61,7 @@ var PlotComponent = Polymer({
     this.plotContainer = document.getElementById(this.uniqueId);
 
     Plotly.plot(this.plotContainer, this.data, {
-      margin: {t: 0, b: 10, l: 10, r: 10}
+      margin: {t: 0, b: 20, l: 10, r: 10}
     });
   },
 
@@ -74,13 +76,20 @@ var PlotComponent = Polymer({
   /**
    * Recieve message from subscribed topic.
    * @function
-   * @param {Object} context - Stores a reference to the Polymer element
    * @param {Object} message - Message data from topic
    */
   handleMessage: function (message) {
     // Handle adding new value to plot element
-    this.plotContainer.data[0].x.push(message.x);
-    this.plotContainer.data[0].y.push(message.y);
+
+    if (this.useTimeAsX) {
+      var d = new Date(message.header.stamp.secs * 1000
+        + message.header.stamp.nsecs / 1000000);
+      this.plotContainer.data[0].x.push(d);
+    } else {
+      this.plotContainer.data[0].x.push(message.point.x);
+    }
+
+    this.plotContainer.data[0].y.push(message.point.y);
 
     if (this.plotContainer.data[0].x.length > this.maxPoints) {
       this.plotContainer.data[0].x.shift();
