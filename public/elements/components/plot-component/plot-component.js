@@ -16,8 +16,12 @@ var PlotComponent = Polymer({
    */
   properties: frontendInterface.buildComponentPolymerProps({
     uniqueId: String,
+    label: String,
     maxPoints: Number,
-    useTimeAsX: Boolean
+    useTimeAsX: Boolean,
+    staticPlot: Boolean,
+    plotType: String,
+    height: Number
   }),
 
   /**
@@ -30,8 +34,12 @@ var PlotComponent = Polymer({
     this.topic = props.topic;
     this.messageType = props.messageTypes;
     this.uniqueId = props.uniqueId;
-    this.maxPoints = props.maxPoints || 50;
+    this.label = props.label;
+    this.maxPoints = props.maxPoints || 50; // A default maximum of 50 points
     this.useTimeAsX = (props.useTimeAsX.toLowerCase() === 'true');
+    this.staticPlot = (props.staticPlot.toLowerCase() === 'true');
+    this.connected = (props.connected.toLowerCase() === 'true');
+    this.height = props.height || 80; // A default height of 80 px
   },
 
   /**
@@ -53,16 +61,33 @@ var PlotComponent = Polymer({
     // Set the message handling function and pass the Polymer element context.
     this.topicListener.subscribe(this.handleMessage.bind(this));
 
+    // Initialize a blank dataset with a single trace
     this.data = [{
       x: [],
       y: []
     }];
 
-    this.plotContainer = document.getElementById(this.uniqueId);
+    /*
+     * Set the mode to either be just dots or dots with connected lines
+     * depending on configuration.
+     */
+    this.data[0].mode = '';
+    if (this.connected) {
+      this.data[0].mode = 'lines+';
+    }
+    this.data[0].mode += 'markers';
 
+    this.plotContainer = document.getElementById(this.uniqueId);
+    this.plotContainer.style.height = this.height.toString() + 'px';
+
+    /*
+     * Initialize the plot with some basic default styling and the initial
+     * dataset.
+     */
     Plotly.plot(this.plotContainer, this.data, {
-      margin: {t: 0, b: 20, l: 10, r: 10}
-    });
+      margin: {t: 0, b: 20, l: 30, r: 30},
+      xaxis: {tickangle: 0}
+    }, {displaylogo: false, staticPlot: this.staticPlot});
   },
 
   /**
@@ -82,6 +107,10 @@ var PlotComponent = Polymer({
     // Handle adding new value to plot element
 
     if (this.useTimeAsX) {
+      /*
+       * Convert ros' stamp format to milliseconds and create date with that
+       * time if the plot is configurted to use current time as the x-axis.
+       */
       var d = new Date(message.header.stamp.secs * 1000
         + message.header.stamp.nsecs / 1000000);
       this.plotContainer.data[0].x.push(d);
@@ -91,11 +120,13 @@ var PlotComponent = Polymer({
 
     this.plotContainer.data[0].y.push(message.point.y);
 
+    // Bump the oldest data off if the data length exceeds the maximum.
     if (this.plotContainer.data[0].x.length > this.maxPoints) {
       this.plotContainer.data[0].x.shift();
       this.plotContainer.data[0].y.shift();
     }
 
+    // Redraw the entire plot to incorporate the new data.
     Plotly.redraw(this.plotContainer);
   }
 });
