@@ -91,7 +91,7 @@ var PoseComponent3D = Polymer({
     polymerContext.arrow = new THREE.ArrowHelper(dir,
         origin, length, hexColour);
     polymerContext.scene.add(polymerContext.arrow);
-    polymerContext.renderer = new THREE.WebGLRenderer();
+    polymerContext.renderer = new THREE.CanvasRenderer();
     polymerContext.renderer.setSize(polymerContext.width,
         polymerContext.height);
     dm = polymerContext.renderer.domElement;
@@ -106,7 +106,7 @@ var PoseComponent3D = Polymer({
      * @param q quaternion value of current orientation
      */
   rotate: function (polymerContext, q) {
-    var dir, rotation, quaternion ;
+    var dir, rotation, quaternion;
     dir = new THREE.Vector3(1, 0, 0);
     rotation = new THREE.Euler(0, 0, 0, 'XYZ');
     quaternion = new THREE.Quaternion(q.x, q.y, q.z, q.w);
