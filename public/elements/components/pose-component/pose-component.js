@@ -57,7 +57,7 @@ var PoseComponent = Polymer({
       rotation;
 
     q = message.pose.orientation;
-    rotation = new THREE.Euler(1, 0, 0, 'XYZ');
+    rotation = new THREE.Euler(0, 0, 0, 'XYZ');
     rotation.setFromQuaternion(q, 'XYZ');
 
     polymerContext.angle = rotation.z; // Update current angle
