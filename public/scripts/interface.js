@@ -12,7 +12,7 @@
  * @author David Lougheed
  * @constructor
  * @param properties {Object} - Specifies configuration settings for interface
- * @global 
+ * @global
  */
 var MRFrontendInterface = function (properties) {
   // The base set of Polymer properties that all components share.
@@ -22,8 +22,8 @@ var MRFrontendInterface = function (properties) {
     messageType: String,
   };
 
-  this.host = properties.host;
-  this.port = properties.port;
+  this.host = 'http://auv';//properties.host;
+  this.port = '11311';//properties.port;
   this.containerId = properties.containerId;
   this.topBarId = properties.topBarId;
 
