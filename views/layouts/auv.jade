@@ -1,0 +1,20 @@
+extends ../index.jade
+
+block layout
+  base-widget(width = '2', height = '2', x = '0', y = '0',
+              title = 'Computer Voltage')
+    text-component(topic = '/electrical_interface/computer_voltage',
+                   message-type = 'std_msgs/Float32', label = '')
+
+  base-widget(width = '2', height = '2', x = '0', y = '2',
+              title = 'Motor Voltage')
+    text-component(topic = '/electrical_interface/motor_voltage',
+                   message-type = 'std_msgs/Float32', label = '')
+
+  base-widget(width = '2', height = '2', x = '2', y = '2',
+              title = 'State Estimation Depth')
+    text-component(topic = '/state_estimation/depth',
+                   message-type = 'std_msgs/Float64', label = '')
+
+  base-widget(width = '4', height = '4', x = '4', y = '0', title = 'Cam Feed')
+    text-component(topic = '/camera/image_raw')
