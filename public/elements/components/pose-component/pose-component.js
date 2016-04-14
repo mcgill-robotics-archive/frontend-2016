@@ -90,10 +90,14 @@ var PoseComponent = Polymer({
    */
   initCanvas: function (polymerContext) {
     var canvas = document.createElement('canvas'), // Set up canvas
-      container = polymerContext.parentElement.parentElement.parentElement;
+      container = polymerContext.parentElement;
+
+    while (container.tagName !== 'PAPER-CARD') {
+      container = container.parentElement;
+    }
     polymerContext.compassRadius =
-        ((Math.min(container.clientHeight,
-            container.clientWidth)) / 2) - 50;
+        ((Math.min(container.clientHeight - 90,
+            container.clientWidth)) / 2);
     canvas.height = 2 * polymerContext.compassRadius;
     canvas.width = 2 * polymerContext.compassRadius;
     canvas.style.position = "relative";
