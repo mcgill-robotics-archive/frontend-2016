@@ -80,14 +80,19 @@ var PlotComponent = Polymer({
     this.plotContainer = document.getElementById(this.uniqueId);
     this.plotContainer.style.height = this.height.toString() + 'px';
 
+    var positionSettings = {
+      margin: {t: 0, b: 20, l: 30, r: 30},
+      xaxis: {tickangle: 0}
+    }, dispSettings = {
+      displaylogo: false,
+      staticPlot: this.staticPlot
+    };
+
     /*
      * Initialize the plot with some basic default styling and the initial
      * dataset.
      */
-    Plotly.plot(this.plotContainer, this.data, {
-      margin: {t: 0, b: 20, l: 30, r: 30},
-      xaxis: {tickangle: 0}
-    }, {displaylogo: false, staticPlot: this.staticPlot});
+    Plotly.plot(this.plotContainer, this.data, positionSettings, dispSettings);
   },
 
   /**
