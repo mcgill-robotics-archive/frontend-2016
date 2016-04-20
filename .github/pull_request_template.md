@@ -5,16 +5,16 @@ Describe your pull request here.
 Detail to the reviewer where you want him/her to start the review. 
 
 #### How should this be manually tested?
-Descibe how to test the PR, don't get too detailed. If extra detail is required, create a google doc and link it here. 
+Step by step instructions on how to test this PR. If the pull request description starts to get too long, create a google doc in (this folder)[https://drive.google.com/drive/u/0/folders/0B3z00C6gHelveDRUX3pyQm9ocU0] and link it here. 
 
 #### Any background context you want to provide?
 A good place to provide motivation for changes, and background info which help the reviewer undestand your changes.  
 
 #### What are the relevant issues?
-Issue numbers should be refferenced here. You can use the `fixes #insertissuenumberhere` patern to auto-close your issues when the pull request is merged. 
+Fixes (insert `#issuenumber`)
 
-#### Screenshots (if appropriate)?
+#### Screenshots (if appropriate (ALLWAYS APPROPRIATE))?
 
 
 #### Does this add any dependencies? Have they been handled? How should they be if not?
-NPM, Bower, Ros, or any other dependencies should be mentioned here.
+NPM, Bower, Ros or any other dependencies should be mentioned here.
