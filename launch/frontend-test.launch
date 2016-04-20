@@ -24,4 +24,8 @@
   <node pkg="frontend" name="frontend_test_pose_publisher" type="pose_publisher.py">
   </node>
 
+  <!-- Test Sine Wave (Plot) Publisher -->
+  <node pkg="frontend" name="frontend_test_plot_publisher" type="plot_publisher.py">
+  </node>
+
 </launch>
