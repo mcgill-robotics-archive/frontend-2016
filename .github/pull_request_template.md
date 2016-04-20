@@ -13,7 +13,7 @@ A good place to provide motivation for changes, and background info which help t
 #### What are the relevant issues?
 Fixes (insert `#issuenumber`)
 
-#### Screenshots (if appropriate (ALLWAYS APPROPRIATE))?
+#### Screenshots?
 
 
 #### Does this add any dependencies? Have they been handled? How should they be if not?
