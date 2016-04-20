@@ -4,7 +4,7 @@ block layout
   base-widget(width = '4', height = '4', x = '0', y = '0', title = 'Test 1')
     bar-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
       label = 'Number', min = '0', max = '1000', step = '1')
-  
+
   base-widget(width = '4', height = '4', x = '8', y = '0', title = 'Test 2')
     text-component(topic = '/test_text_topic', message-type = 'std_msgs/Int64',
       label = 'Number: ')
@@ -12,7 +12,13 @@ block layout
   base-widget(width = '4', height = '4', x = '0', y = '4', title = 'Compass')
     pose-component(topic = '/test_pose_topic',
       message-type = 'geometry_msgs/PoseStamped')
-  
+
+  base-widget(width = '4', height = '4', x = '0', y = '8', title = 'Plot')
+    plot-component(topic = '/test_plot_topic', unique-id = 'testPlot',
+      max-points = '20', use-time-as-x = 'true', height = '80',
+      connected = 'false', static-plot = 'true',
+      message-type = 'geometry_msgs/PointStamped')
+
   base-widget(width = '4', height = '8', x = '4', y = '4', title = '3D pose')
     td-pose-component(topic = '/test_pose_topic',
       message-type = 'geometry_msgs/PoseStamped')
@@ -23,8 +29,3 @@ block layout
 
     img-feed-component(topic = '/camera_front_left/image_rect_color',
       fullness = '0.80', aspect-ratio = '0.74')
-
-
-
-
-
