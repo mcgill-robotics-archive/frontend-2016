@@ -1,5 +1,5 @@
 /**
- * Define behaviour for 2D pose component
+ * Define behaviour for 2D pose component, which display a compass like figure
  */
 
 /*global Polymer, ROSLIB, frontendInterface, THREE */
@@ -7,7 +7,7 @@
 'use strict';
 
 var PoseComponent = Polymer({
-  is: "pose-component",
+  is: "compass-component",
   properties: frontendInterface.buildComponentPolymerProps({
     angle: Number,
     canvas: Object,
