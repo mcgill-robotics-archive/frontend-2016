@@ -12,6 +12,12 @@ block layout
   base-widget(width = '4', height = '4', x = '0', y = '4', title = 'Compass')
     pose-component(topic = '/test_pose_topic',
       message-type = 'geometry_msgs/PoseStamped')
+
+  base-widget(width = '4', height = '4', x = '0', y = '8', title = 'Plot')
+    plot-component(topic = '/test_plot_topic', unique-id = 'testPlot',
+      max-points = '20', use-time-as-x = 'true', height = '80',
+      connected = 'false', static-plot = 'true',
+      message-type = 'geometry_msgs/PointStamped')
   
   base-widget(width = '4', height = '8', x = '4', y = '4', title = '3D pose')
     td-pose-component(topic = '/test_pose_topic',
@@ -23,8 +29,4 @@ block layout
 
     img-feed-component(topic = '/camera_front_left/image_rect_color',
       fullness = '0.80', aspect-ratio = '0.74')
-
-
-
-
 

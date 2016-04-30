@@ -87,15 +87,19 @@ var PoseComponent = Polymer({
    */
   initCanvas: function (polymerContext) {
     var canvas = document.createElement('canvas'), // Set up canvas
-      container = polymerContext.parentElement.parentElement.parentElement;
-    this.compassRadius =
-        ((Math.min(container.clientHeight,
-          container.clientWidth)) / 2) - 50;
-    canvas.height = 2 * this.compassRadius;
-    canvas.width = 2 * this.compassRadius;
+        container = polymerContext.parentElement;
+
+    while (container.tagName !== 'PAPER-CARD') {
+      container = container.parentElement;
+    }
+    polymerContext.compassRadius =
+        ((Math.min(container.clientHeight - 90,
+            container.clientWidth)) / 2);
+    canvas.height = 2 * polymerContext.compassRadius;
+    canvas.width = 2 * polymerContext.compassRadius;
     canvas.style.position = "relative";
     Polymer.dom(polymerContext.root).appendChild(canvas);
-    this.canvas = canvas;
+    polymerContext.canvas = canvas;
   },
 
   /**
@@ -219,4 +223,4 @@ var PoseComponent = Polymer({
     canvasContext.lineWidth = polymerContext.compassRadius / 40;
     canvasContext.stroke();
   }
-});
+});;

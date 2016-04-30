@@ -9,8 +9,10 @@ html
       src = '/lib/eventemitter2/lib/eventemitter2.js')
     script(type = 'text/javascript', src = '/lib/roslib/build/roslib.min.js')
 
-    script(type="text/javascript", src=
-      '/lib/mjpegcanvas/build/mjpegcanvas.min.js')
+    script(type = 'text/javascript',
+      src = '/lib/mjpegcanvas/build/mjpegcanvas.min.js')
+
+    script(type = 'text/javascript', src = '/lib/plotly.js/dist/plotly.min.js')
 
     script(type = 'text/javascript', src = '/scripts/interface.js')
 
@@ -44,7 +46,8 @@ html
       href = '/elements/components/pose-component/pose-component.html')
     link(rel = 'import',
       href = '/elements/components/td-pose-component/td-pose-component.html')
-
+    link(rel = 'import',
+      href = '/elements/components/plot-component/plot-component.html')
 
   body
     paper-tabs#topBar
