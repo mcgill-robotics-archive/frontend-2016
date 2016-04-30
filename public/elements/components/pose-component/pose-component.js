@@ -87,7 +87,7 @@ var PoseComponent = Polymer({
    */
   initCanvas: function (polymerContext) {
     var canvas = document.createElement('canvas'), // Set up canvas
-        container = polymerContext.parentElement;
+      container = polymerContext.parentElement;
 
     while (container.tagName !== 'PAPER-CARD') {
       container = container.parentElement;
@@ -223,4 +223,4 @@ var PoseComponent = Polymer({
     canvasContext.lineWidth = polymerContext.compassRadius / 40;
     canvasContext.stroke();
   }
-});;
+});
