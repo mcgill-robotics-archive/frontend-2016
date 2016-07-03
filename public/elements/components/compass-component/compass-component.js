@@ -1,5 +1,5 @@
 /**
- * Define behaviour for 2D pose component
+ * Define behaviour for 2D pose component, which display a compass like figure
  */
 
 /*global Polymer, ROSLIB, frontendInterface, THREE */
@@ -7,7 +7,7 @@
 'use strict';
 
 var PoseComponent = Polymer({
-  is: "pose-component",
+  is: "compass-component",
   properties: frontendInterface.buildComponentPolymerProps({
     angle: Number,
     canvas: Object,
@@ -87,14 +87,15 @@ var PoseComponent = Polymer({
    */
   initCanvas: function (polymerContext) {
     var canvas = document.createElement('canvas'), // Set up canvas
-      container = polymerContext.parentElement;
-
+      container = polymerContext.parentElement,
+      limitingDimension = null;
     while (container.tagName !== 'PAPER-CARD') {
       container = container.parentElement;
     }
-    polymerContext.compassRadius =
-        ((Math.min(container.clientHeight - 90,
-            container.clientWidth)) / 2);
+
+    limitingDimension = Math.min(container.clientHeight - 90,
+        container.clientWidth);
+    polymerContext.compassRadius = limitingDimension / 2;
     canvas.height = 2 * polymerContext.compassRadius;
     canvas.width = 2 * polymerContext.compassRadius;
     canvas.style.position = "relative";
