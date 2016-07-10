@@ -89,7 +89,6 @@ var PoseComponent = Polymer({
     var canvas = document.createElement('canvas'), // Set up canvas
       container = polymerContext.parentElement,
       limitingDimension = null;
-
     while (container.tagName !== 'PAPER-CARD') {
       container = container.parentElement;
     }
