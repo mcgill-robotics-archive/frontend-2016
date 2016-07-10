@@ -6,8 +6,8 @@
 
 'use strict';
 
-var PoseComponent3D = Polymer({
-  is: "td-pose-component",
+var PoseComponent = Polymer({
+  is: "pose-component",
   properties: frontendInterface.buildComponentPolymerProps({
     camera: Object,
     scene: Object,
