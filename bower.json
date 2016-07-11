@@ -25,6 +25,7 @@
     "paper-elements": "PolymerElements/paper-elements#^1.0.0",
     "roslib": "roslibjs#~0.17.0",
     "mjpegcanvas": "mjpegcanvas#^0.4.0",
+    "three.js": "threejs#*",
     "plotly.js": "^1.7.0"
   }
 }

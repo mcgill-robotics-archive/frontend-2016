@@ -1,17 +1,24 @@
 /**
- * Define behaviour for 2D pose component
+ * Define behaviour for 3D pose component
  */
 
-/*global Polymer, ROSLIB, frontendInterface */
+/*global Polymer, ROSLIB, frontendInterface, THREE, requestAnimationFrame*/
 
 'use strict';
 
 var PoseComponent = Polymer({
   is: "pose-component",
   properties: frontendInterface.buildComponentPolymerProps({
-    angle: Number,
-    canvas: Object,
-    compassRadius: Number
+    camera: Object,
+    scene: Object,
+    renderer: Object,
+    arrow: Object,
+    aspectRatio: Number,
+    width: Number,
+    height: Number,
+    labelX: String,
+    labelY: String,
+    labelZ: String
   }),
 
   /**
@@ -19,8 +26,13 @@ var PoseComponent = Polymer({
    * @function
    */
   attached: function () {
-    var polymerContext = this;
-    this.initCanvas(polymerContext);
+    var polymerContext = this,
+      container = polymerContext.parentElement.parentElement.parentElement;
+
+    this.width = container.clientWidth - 40;
+    this.height = container.clientHeight - 150;
+    this.aspectRatio = this.width / this.height;
+    this.init(polymerContext);
 
     // Subscribe to topic defined by HTML attribute / Polymer property 'topic'
     this.topicListener = new ROSLIB.Topic({
@@ -44,186 +56,75 @@ var PoseComponent = Polymer({
   },
 
   /**
-   * Recieve pose stamped message from the subscribed topic
-   * and set Polymer property 'angle' to the yaw.
-   * NOTE: 0 deg. is NORTH
+   * Recieve pose stamped message from the subscribed topic,
+   * rotate arrow to the quaternion contained in the received message
+   * and set Polymer property 'xLabel' to the euler.x,
+   * 'yLabel' to euler.y and 'zLabel' to euler.z.
+   *
    * @function
    * @param {Object} polymerContext - Stores a reference to the Polymer element
    * @param {Object} message - pose stamped message containing updated angle
    */
   handleMessage: function (polymerContext, message) {
-    // message orientation is a quaternion. convert to euler - yaw
-    var q,
-      numeratorYawEqn,
-      denominatorYawEqn,
-      yaw;
-
-    q = message.pose.orientation;
-    numeratorYawEqn = 2.0 * (q.x * q.y + q.w * q.z);
-    denominatorYawEqn = q.w * q.w - q.z * q.z - q.y * q.y + q.x * q.x;
-    yaw = Math.atan2(numeratorYawEqn, denominatorYawEqn);
-
-    polymerContext.angle = yaw; // Update current angle
-    polymerContext.rotate(polymerContext); // Rotate image
-
+    var q = message.pose.orientation;
+    polymerContext.rotate(polymerContext, q);
   },
 
-  /**
-   * Handle adjusting angle of pose line
-   * @function
-   * @param {Object} polymerContext - Stores a reference to the Polymer element
-   */
-  rotate: function (polymerContext) {
-    var canvasContext = this.canvas.getContext("2d"),
-      radius = this.compassRadius;
-    canvasContext.clearRect(0, 0, 2 * radius, 2 * radius);
-    this.drawCircle(canvasContext, radius);
-    this.drawPoseLine(canvasContext, radius);
-    this.rotateToAngle(polymerContext, canvasContext, radius);
-    this.addVisualCues(polymerContext, canvasContext);
+    /**
+     * Create the Threejs scene to contain the 3D pose component. Add XYZ axes
+     * @param polymerContext - Stores a reference to the polymer element
+     */
+  init: function (polymerContext) {
+
+    polymerContext.camera = new THREE.PerspectiveCamera(75,
+      polymerContext.aspectRatio, 1, 1000);
+    polymerContext.camera.position.z = polymerContext.width;
+    polymerContext.scene = new THREE.Scene();
+    var dir = new THREE.Vector3(1, 0, 0),
+      origin = new THREE.Vector3(0, 0, 0),
+      length = 2 * ((Math.min(polymerContext.width,
+              polymerContext.height)) / 3),
+      hexColour = 0xfff000,
+      axisHelper = new THREE.AxisHelper(polymerContext.width / 2),
+      dm;
+    polymerContext.scene.add(axisHelper);
+    polymerContext.arrow = new THREE.ArrowHelper(dir,
+        origin, length, hexColour);
+    polymerContext.scene.add(polymerContext.arrow);
+    polymerContext.renderer = new THREE.CanvasRenderer();
+    polymerContext.renderer.setSize(polymerContext.width,
+        polymerContext.height);
+    dm = polymerContext.renderer.domElement;
+    Polymer.dom(polymerContext.root).appendChild(dm);
+    polymerContext.controls = new THREE.OrbitControls(polymerContext.camera,
+        polymerContext.renderer.domElement);
   },
 
-  /**
-   * Create the html canvas object to contain the compass
-   * @function
-   * @param {Object} polymerContext - Reference to the Polymer element
-   */
-  initCanvas: function (polymerContext) {
-    var canvas = document.createElement('canvas'), // Set up canvas
-      container = polymerContext.parentElement;
-
-    while (container.tagName !== 'PAPER-CARD') {
-      container = container.parentElement;
-    }
-    polymerContext.compassRadius =
-        ((Math.min(container.clientHeight - 90,
-            container.clientWidth)) / 2);
-    canvas.height = 2 * polymerContext.compassRadius;
-    canvas.width = 2 * polymerContext.compassRadius;
-    canvas.style.position = "relative";
-    Polymer.dom(polymerContext.root).appendChild(canvas);
-    polymerContext.canvas = canvas;
+    /**
+     * Updates the arrow object
+     * @param polymerContext Stores a reference to the polymer element
+     * @param q quaternion value of current orientation
+     */
+  rotate: function (polymerContext, q) {
+    var dir, rotation, quaternion;
+    dir = new THREE.Vector3(1, 0, 0);
+    rotation = new THREE.Euler(0, 0, 0, 'XYZ');
+    quaternion = new THREE.Quaternion(q.x, q.y, q.z, q.w);
+    rotation.setFromQuaternion(quaternion.normalize(), 'XYZ');
+    dir.applyEuler(rotation);
+    polymerContext.arrow.setDirection(dir);
+    polymerContext.renderer.render(polymerContext.scene, polymerContext.camera);
+    polymerContext.updateLabels(polymerContext, rotation);
   },
 
-  /**
-   * Draw a circle in the canvas for the background
-   * @function
-   * @param {Object} canvasContext - Stores a reference to the canvas element
-   * @param {Number} radius - The length of the pose line, which is also
-   *                          the radius of the circle
-   */
-  drawCircle: function (canvasContext, radius) {
-    canvasContext.beginPath();
-    canvasContext.arc(radius, radius, radius, 0, 2 * Math.PI, false);
-    canvasContext.fillStyle = 'black';
-    canvasContext.fill();
-  },
-
-  /**
-   * Draw a north facing line in the canvas to indicate the pose line
-   * @function
-   * @param {Object} canvasContext - Stores a reference to the canvas element
-   * @param {Number} length - The length of the pose line
-   */
-  drawPoseLine: function (canvasContext, length) {
-    canvasContext.beginPath();
-    canvasContext.moveTo(length, length);
-    canvasContext.lineTo(length, 0);
-    canvasContext.strokeStyle = 'red';
-    canvasContext.lineWidth = length / 20;
-    canvasContext.stroke();
-  },
-
-  /**
-   * Rotate the canvas to the current value of angle
-   * @function
-   * @param {Object} polyCtx - Stores a reference to the polymer element
-   * @param {Object} canvasContext - Stores a reference to the canvas element
-   * @param {Number} length - The length of the pose line
-   */
-  rotateToAngle: function (polyCtx, canvasContext, length) {
-    var tempCanvas,
-      tempCanvasContext;
-
-    tempCanvas = document.createElement("canvas"); // Save image
-    tempCanvasContext = tempCanvas.getContext("2d");
-    tempCanvas.width = 2 * length;
-    tempCanvas.height = 2 * length;
-    tempCanvasContext.drawImage(polyCtx.canvas, 0, 0, 2 * length, 2 * length);
-    canvasContext.save();
-
-    canvasContext.translate(length, length); // Center frame of rotation
-    canvasContext.rotate(polyCtx.angle);
-    canvasContext.translate(-length, -length);
-    canvasContext.drawImage(tempCanvas, 0, 0);
-    canvasContext.restore();
-  },
-
- /**
-   * Draw lines and add labels to the 0, 90, 180 and 270 degree
-   * locations on the compass canvas
-   * @function
-   * @param {Object} polymerContext - Stores a reference to the polymer element
-   * @param {Object} canvasContext - Stores a reference to the canvas element
-   */
-  addVisualCues: function (polymerContext, canvasContext) {
-    this.addLines(polymerContext, canvasContext);
-    this.labelAngles(polymerContext, canvasContext);
-  },
-
- /**
-   * Draw marklines to 0, 90, 180  and 270 degree
-   * locations on the compass canvas
-   * @function
-   * @param {Object} polymerContext - Reference to the polymer element
-   * @param {Object} canvasContext - Reference to the canvas element
-   */
-  addLines: function (polymerContext, canvasContext) {
-    var max = polymerContext.compassRadius,
-      start = (1 / 8) * max,
-      maxOffset = 2 * max - start;
-    this.drawLine(polymerContext, canvasContext, max, 0, max, start);
-    this.drawLine(polymerContext, canvasContext, max, 2 * max, max, maxOffset);
-    this.drawLine(polymerContext, canvasContext, 0, max, start, max);
-    this.drawLine(polymerContext, canvasContext, 2 * max, max, maxOffset, max);
-  },
-
-/**
-   * Label angles at 0, 90, 180  and 270 degree locations on the compass canvas
-   * @function
-   * @param {Object} polymerContext - Stores a reference to the polymer element
-   * @param {Object} canvasContext - Stores a reference to the canvas element
-   */
-  labelAngles: function (polymerContext, canvasContext) {
-    var max = polymerContext.compassRadius,
-      start = (1 / 4) * max,
-      maxOffset = (2 * max) - start;
-    canvasContext.fillStyle = 'white';
-    canvasContext.font = '14pt Arial';
-    canvasContext.textBaseline = 'middle';
-    canvasContext.textAlign = "center";
-    canvasContext.fillText("0", max, start);
-    canvasContext.fillText("90 ", maxOffset, max);
-    canvasContext.fillText("180", max, maxOffset);
-    canvasContext.fillText("270", start, max);
-  },
-
- /**
-   * Draw line from (x1,y1) to (x2,y2) canvas
-   * @function
-   * @param {Object} polymerContetx - Stores a reference to the polymer element
-   * @param {Object} canvasContext - Stores a reference to the canvas element
-   * @param {Number} x1 x poistion of line start
-   * @param {Number} y1 y poistion of line start
-   * @param {Number} x2 x poistion of line end
-   * @param {Number} y2 y poistion of line end
-   */
-  drawLine: function (polymerContext, canvasContext, x1, y1, x2, y2) {
-    canvasContext.beginPath();
-    canvasContext.moveTo(x1, y1);
-    canvasContext.lineTo(x2, y2);
-    canvasContext.strokeStyle = 'white';
-    canvasContext.lineWidth = polymerContext.compassRadius / 40;
-    canvasContext.stroke();
+    /**
+     * Updates the x,y,z, values being displayed
+     * @param polymerContext - Stores a reference to the polymer element
+     * @param rotation - the euler value of the quaternion from the message
+     */
+  updateLabels: function (polymerContext, rotation) {
+    polymerContext.labelX = rotation.x.toString();
+    polymerContext.labelY = rotation.y.toString();
+    polymerContext.labelZ = rotation.z.toString();
   }
 });
